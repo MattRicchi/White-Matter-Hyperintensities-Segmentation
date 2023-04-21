@@ -59,3 +59,29 @@ def sliceAndSaveVolumeImage(vol, fname, path, SLICE_DECIMATE_IDENTIFIER = 3):
 
     return
     
+def concatenateImages(flair_img, t1w_img):
+    """
+    Concatenate two 2D images into one 3D image.
+
+    Parameters
+    ----------
+        flair_img (array): first image to be concatenated.
+        t1w_img (array): second image to be concatenated.
+    
+    Returns
+    -------
+        FLAIR_and_T1W_image (array): 3D image containing flair_img and t1w_img.
+    """
+    import numpy as np
+    # Get the shape of the two images
+    (image_rows, image_columns) = flair_img.shape
+    # Define the channel on which the two images will be concatenated
+    channel_number = 2
+    # Define the final 3D image
+    FLAIR_and_T1W_image = np.ndarray((image_rows, image_columns, channel_number), dtype = np.float32)
+    # Create a new axis in the two 2D images
+    flair_img = flair_img[..., np.newaxis]
+    t1w_img = t1w_img[..., np.newaxis]
+    # Finally, concatenate the 2D images into a 3D image
+    FLAIR_and_T1W_image = np.concatenate((flair_img, t1w_img), axis = 2)
+    return FLAIR_and_T1W_image
