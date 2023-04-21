@@ -8,7 +8,7 @@ def Setup_Script():
     sys.path.append(os.getcwd())
     print(os.getcwd())
 
-    print('Checking you hve all packages needed for the codebase...')
+    print('Checking you have all packages needed for the codebase...')
 
     try:
         import numpy
@@ -30,8 +30,12 @@ def Setup_Script():
         import focal_loss
     except:
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'focal-loss'])
+    try:
+        import platform
+    except:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'platform'])
     
-    print('Using cpu: ' + platform.processro())
+    print('Using cpu: ' + platform.processor())
     print('All good, off we go!')
 
     return
