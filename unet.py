@@ -1,38 +1,25 @@
 #!/usr/bin/env python3
 
-import os
-from this import d
-import numpy as np
-import tensorflow as tf
-import tensorflow.keras as keras
-from tensorflow.keras import layers as L
+# import os
+# from this import d
+# import numpy as np
+# import tensorflow as tf
+# import tensorflow.keras as keras
+# from tensorflow.keras import layers as L
 
-wpath = os.path.join(os.getcwd(), 'weights', '{}')
+def get_unet():
 
-def get_crop_shape(target, refer):
-    '''
-    '''
-    cw = target.get_shape()[2] - refer.get_shape()[2]
-    
-    assert (cw >= 0)
-    if cw % 2 != 0:
-        cw1, cw2 = int(cw/2), int(cw/2) + 1
-    else:
-        cw1, cw2 = int(cw/2), int(cw/2)
-    # height, the 2nd dimension
-    ch = target.get_shape()[1] - refer.get_shape()[1]
+    import os
+    import numpy as np
+    import tensorflow as tf
+    import tensorflow.keras as keras
+    from tensorflow.keras import layers as L
+    from General_Functions.Training_Functions import get_crop_shape
 
-    assert (ch >= 0)
-    if ch % 2 != 0:
-        ch1, ch2 = int(ch/2), int(ch/2) + 1
-    else:
-        ch1, ch2 = int(ch/2), int(ch/2)
+    wpath = os.path.join(os.getcwd(), 'weights', '{}')
 
-    return (ch1, ch2), (cw1, cw2)
-
-def get_unet(inputs: L.Input) -> keras.Model:
-
-    #inputs = L.Input(shape=image_shape)
+    image_shape = (256, 256, 2)
+    inputs = L.Input(shape=image_shape)
 
     conv1 = L.Conv2D(filters=64, kernel_size=5, strides=1, activation='relu',
                      padding='same', data_format='channels_last', name='conv1_1')(inputs)
@@ -91,35 +78,3 @@ def get_unet(inputs: L.Input) -> keras.Model:
     model = keras.Model(inputs, conv10)
     
     return model
-
-def main() -> None:
-    
-    # shape of the input images
-    image_shape = (256, 256, 2)
-
-    # input layer: will be passed as input to each model
-    inputs = L.Input(shape=image_shape)
-
-    # first model of the ensamble
-    x0 = get_unet(inputs)
-    _ = x0.load_weights(wpath.format('0.h5'))
-    _ = x0.compile()
-
-    # second model of the ensamble
-    x1 = get_unet(inputs)
-    _ = x1.load_weights(wpath.format('1.h5'))
-    _ = x1.compile()
-
-    # third model of the ensamble 
-    x2 = get_unet(inputs)
-    _ = x2.load_weights(wpath.format('2.h5'))
-    _ = x2.compile()
-
-    # visually check that all the model are correctly compiled
-    x0.summary()
-    x1.summary()
-    x2.summary()
-
-
-if __name__ == '__main__':
-    main()
