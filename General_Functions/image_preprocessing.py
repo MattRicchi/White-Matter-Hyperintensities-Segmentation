@@ -22,7 +22,7 @@ def imagePreProcessing(img, brain, label):
     img = np.float32(img)
     brain = np.float32(brain)
     label = np.float32(label)
-    
+
     # Crop images to standard dimentions (256x256)
     (image_rows, image_columns) = img.shape
     standard_dimentions = 256
@@ -33,3 +33,8 @@ def imagePreProcessing(img, brain, label):
     label = label[(int(image_rows/2) - int(standard_dimentions/2)) : (int(image_rows/2) + int(standard_dimentions/2)),
                   (int(image_columns/2) - int(standard_dimentions/2)) : (int(image_columns/2) + int(standard_dimentions/2))]
     
+    # Gaussian normalization over brain volume
+    img -= np.mean(img[brain == 1.0])
+    img /= np.std(img[brain == 1.0])
+    
+    return img, label
