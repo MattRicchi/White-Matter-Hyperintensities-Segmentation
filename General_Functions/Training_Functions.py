@@ -52,3 +52,11 @@ def get_crop_shape(target, refer):
         ch1, ch2 = int(ch/2), int(ch/2)
 
     return (ch1, ch2), (cw1, cw2)
+
+def scheduler(epoch, lr):
+  import tensorflow as tf
+  
+  if epoch < 10:
+    return lr
+  else:
+    return lr * tf.math.exp(-0.1)
