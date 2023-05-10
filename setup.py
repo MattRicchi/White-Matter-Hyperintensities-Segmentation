@@ -1,4 +1,4 @@
-#Always run this to ensure you have all functions on your path
+#Always run this to ensure you have all packages installed
 
 def Setup_Script():
     import sys
