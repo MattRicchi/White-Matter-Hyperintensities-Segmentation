@@ -1,40 +1,66 @@
-def imagePreProcessing(img, brain, label):
+
+def crop_image(image, standard_dimentions = 256):
+    '''
+    Function to crop the input image to standard dimentions (256x256)
+    '''
+    (image_rows, image_columns) = image.shape
+
+    cropped_image = image[(int(image_rows/2) - int(standard_dimentions/2)) : (int(image_rows/2) + int(standard_dimentions/2)),
+              (int(image_columns/2) - int(standard_dimentions/2)) : (int(image_columns/2) + int(standard_dimentions/2))]
+
+    return cropped_image
+
+
+def gaussian_normalisation(image, brain_mask):
+    '''
+    Function to perform gaussian normalisation of pixel intensity
+    '''
+    import numpy as np
+
+    image_mean -= np.mean(image[brain_mask == 1.0])
+    normalised_image /= np.std(image_mean[brain_mask == 1.0])
+    return normalised_image
+
+
+def float32_converter(image):
+    '''
+    Function to convert the input image to numpy float32 array
+    '''
+    import numpy as np
+    image_float32 = np.float32(image)
+
+    return image_float32
+
+
+def imagePreProcessing(image, brain_mask, label):
     """
-    Function for the preprocessing of the images.
-  
-    It performs multiple tasks: conversion of the image in float32, crop image dimentions to (256x256)
-    and normalizes the image intensity by Gaussian normalization over the brain volume.
-  
+    Function for the preprocessing of the images:
+    This function converts the input images into float32, crops images dimentions to (256x256)
+    and normalizes the brain image intensity by Gaussian normalization over the brain volume.
+
     Parameters
     ----------    
-        img (Array): input image.
-        brain (Array): brain mask.
+        image (Array): input brain image.
+        brain_mask (Array): brain mask.
         label (Array): label image.
   
     Returns
     ----------
-        img (Array of float32): cropped and normalized image.
+        image (Array of float32): cropped and normalized brain image.
         label (Array of float32): cropped label image.
     """
-    import numpy as np
 
     # Convert images in float32
-    img = np.float32(img)
-    brain = np.float32(brain)
-    label = np.float32(label)
+    image = float32_converter(image)
+    brain_mask = float32_converter(brain_mask)
+    label = float32_converter(label)
 
     # Crop images to standard dimentions (256x256)
-    (image_rows, image_columns) = img.shape
-    standard_dimentions = 256
-    img = img[(int(image_rows/2) - int(standard_dimentions/2)) : (int(image_rows/2) + int(standard_dimentions/2)),
-              (int(image_columns/2) - int(standard_dimentions/2)) : (int(image_columns/2) + int(standard_dimentions/2))]
-    brain = brain[(int(image_rows/2) - int(standard_dimentions/2)) : (int(image_rows/2) + int(standard_dimentions/2)),
-                  (int(image_columns/2) - int(standard_dimentions/2)) : (int(image_columns/2) + int(standard_dimentions/2))]
-    label = label[(int(image_rows/2) - int(standard_dimentions/2)) : (int(image_rows/2) + int(standard_dimentions/2)),
-                  (int(image_columns/2) - int(standard_dimentions/2)) : (int(image_columns/2) + int(standard_dimentions/2))]
-    
+    image = crop_image(image)
+    brain_mask = crop_image(brain_mask)
+    label = crop_image(label)
+
     # Gaussian normalization over brain volume
-    img -= np.mean(img[brain == 1.0])
-    img /= np.std(img[brain == 1.0])
+    image = gaussian_normalisation(image)
     
-    return img, label
+    return image, label
