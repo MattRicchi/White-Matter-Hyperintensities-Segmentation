@@ -21,9 +21,14 @@ def gaussian_normalisation(image, brain_mask):
     Function to perform gaussian normalisation of pixel intensity
     '''
     import numpy as np
+    
+    # Compute the mean and standard deviation of the image within the brain mask
+    image_mean = np.mean(image[brain_mask == 1.0])
+    image_std = np.std(image[brain_mask == 1.0])
 
-    image_mean -= np.mean(image[brain_mask == 1.0])
-    normalised_image /= np.std(image_mean[brain_mask == 1.0])
+    # Normalize the image using a Gaussian distribution with zero mean and unit variance
+    normalised_image = (image - image_mean) / image_std
+    
     return normalised_image
 
 
