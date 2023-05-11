@@ -159,3 +159,45 @@ def test_gaussian_normalisation():
     # Check if the output image has zero mean and unit variance within the brain mask
     assert np.isclose(np.mean(normalised_image[brain_mask == 1.0]), 0.0, rtol=1e-3)
     assert np.isclose(np.std(normalised_image[brain_mask == 1.0]), 1.0, rtol=1e-3)
+
+
+def test_float32_converter():
+    from General_Functions.image_preprocessing import float32_converter
+    import numpy as np
+
+    # Create a test image of size 2x2
+    test_image = np.array([[1, 2], [3, 4]])
+
+    # Call the float32_converter function
+    float32_image = float32_converter(test_image)
+
+    # Check if the output image has the correct type
+    assert float32_image.dtype == np.float32
+
+    # Check if the output image has the correct shape and values
+    assert np.allclose(float32_image, np.float32([[1, 2], [3, 4]]))
+    
+
+def test_imagePreProcessing():
+    from General_Functions.image_preprocessing import imagePreProcessing, float32_converter, gaussian_normalisation, crop_image
+    import numpy as np
+    # Create a test image of size 512x512 and a corresponding brain mask and label
+    test_image = np.random.rand(512, 512)
+    test_brain_mask = np.random.randint(2, size=(512, 512))
+    test_label = np.random.randint(3, size=(512, 512))
+
+    # Call the imagePreProcessing function
+    preprocessed_image, preprocessed_label = imagePreProcessing(test_image, test_brain_mask, test_label)
+
+    # Check if the output images have the correct type
+    assert preprocessed_image.dtype == np.float32
+    assert preprocessed_label.dtype == np.float32
+
+    # Check if the output images have the correct shape
+    assert preprocessed_image.shape == (256, 256)
+    assert preprocessed_label.shape == (256, 256)
+
+    # Check if the output images have the correct values
+    assert np.allclose(np.mean(preprocessed_image[crop_image(test_brain_mask) == 1.0]), 0.0, rtol=1e-7, atol=1e-7)
+    assert np.allclose(np.std(preprocessed_image[crop_image(test_brain_mask) == 1.0]), 1.0, rtol=1e-7, atol=1e-7)
+    assert np.allclose(preprocessed_label, crop_image(test_label))

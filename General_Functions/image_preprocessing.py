@@ -71,6 +71,6 @@ def imagePreProcessing(image, brain_mask, label):
     label = crop_image(label)
 
     # Gaussian normalization over brain volume
-    image = gaussian_normalisation(image)
+    image = gaussian_normalisation(image, brain_mask)
     
     return image, label
