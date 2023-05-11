@@ -1,4 +1,10 @@
-#Always run this to ensure you have all packages installed
+'''
+This script contains the Setup_Script function that installs all the required packages.
+Please, always run this to ensure you have all the required packages installed.
+
+Author: Mattia Ricchi
+Date: May 2023
+'''
 
 def Setup_Script():
     import sys

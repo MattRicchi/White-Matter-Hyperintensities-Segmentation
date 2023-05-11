@@ -1,4 +1,9 @@
+'''
+This script contains all the necessary functions for the preprocessing of the MR images. 
 
+Author: Mattia Ricchi
+Date: May 2023
+'''
 def crop_image(image, standard_dimentions = 256):
     '''
     Function to crop the input image to standard dimentions (256x256)

@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
+'''
+This script contains the function get_unet that defines the Network used in the ensamble model
 
-# import os
-# from this import d
-# import numpy as np
-# import tensorflow as tf
-# import tensorflow.keras as keras
-# from tensorflow.keras import layers as L
+Author: Mattia Ricchi
+Date: May 2023
+'''
+#!/usr/bin/env python3
 
 def get_unet():
 

@@ -1,3 +1,10 @@
+'''
+This script contains useful functions for the training of the network. 
+
+Author: Mattia Ricchi
+Date: May 2023
+'''
+
 def dataAugmentation(flair, t1, label):
     import numpy as np
     import tensorflow.keras as keras 

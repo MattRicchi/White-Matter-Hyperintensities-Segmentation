@@ -1,3 +1,10 @@
+'''
+This script contains all the necessary functions to deal with MR images in .nii format.
+
+Author: Mattia Ricchi
+Date: May 2023
+'''
+
 def readImage(imgPath):
     """
     Function to read and load a .nii file
