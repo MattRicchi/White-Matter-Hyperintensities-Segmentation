@@ -18,8 +18,8 @@ def readImage(imgPath):
         (array): File located at imgPath.
     """
     import nibabel as nib
-
-    return nib.load(imgPath).get_fdata()
+    image = nib.load(imgPath).get_fdata()
+    return image
 
 def saveSlice(img, fname, path):
     """
