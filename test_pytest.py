@@ -180,7 +180,7 @@ def test_crop_image():
     assert cropped_image.shape == (256, 256)
 
     # Call crop_image function with standard_dimentions = 128
-    cropped_image = crop_image(test_image, standard_dimentions=128)
+    cropped_image = crop_image(test_image, standard_dimensions=128)
 
     # Check if the output image has the correct shape
     assert cropped_image.shape == (128, 128)
