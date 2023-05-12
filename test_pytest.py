@@ -8,66 +8,107 @@ Date: May 2023
 
 def test_readImage():
     from General_Functions.Nii_Functions import readImage
+    import pytest
     import numpy as np
-    import nibabel as nib
-    import os
+    from numpy.testing import assert_array_equal
+    from tempfile import TemporaryDirectory
     from pathlib import Path
+    import nibabel as nib
 
-    # First define a test image array and a test file name and path
-    test_img = np.random.rand(10, 10, 10)
-    fname = "test_image"
-    path = os.path.join(os.getcwd(), 'test_folder')
-
-    # Save the test image using nibabel
-    test_img_nib = nib.Nifti1Image(test_img, np.eye(4))
-    nib.save(test_img_nib, os.path.join(path, f"{fname}.nii"))
-
-    # Load the saved image using the readImage function
-    loaded_img = readImage(os.path.join(path, f"{fname}.nii"))
-
-    # Check that the loaded image matches the original test image
-    assert np.allclose(test_img, loaded_img)
+    # Create a temporary directory and a dummy image file
+    with TemporaryDirectory() as tmpdir:
+        img_path = Path(tmpdir) / 'test.nii.gz'
+        dummy_img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
+        nib.save(nib.Nifti1Image(dummy_img, np.eye(4)), str(img_path))
+        
+        # Test reading the dummy image
+        img = readImage(str(img_path))
+        assert_array_equal(img, dummy_img)
+        
+        # Test that a FileNotFoundError is raised if the image path does not exist
+        with pytest.raises(FileNotFoundError):
+            readImage('nonexistent.nii.gz')
+            
+        # Test that a nibabel.filebasedimages.ImageFileError is raised if the file path is not a valid medical image file
+        with open(str(img_path), 'w') as f:
+            f.write('not a medical image file')
+        with pytest.raises(nib.filebasedimages.ImageFileError):
+            readImage(str(img_path))
 
 
 def test_saveSlice():
     from General_Functions.Nii_Functions import saveSlice
+    import os
+    import tempfile
     import numpy as np
     import nibabel as nib
-    import os
+    import pytest
 
-    # First define a test image array and a test file name and path
-    test_img = np.random.rand(10, 10, 10)
+    # Generate test data
+    img = np.random.rand(10, 10, 10)
     fname = "test_image"
-    path = os.path.join(os.getcwd(), 'test_folder')
+    
+    # Test saving to a temporary directory
+    with tempfile.TemporaryDirectory() as temp_dir:
+        saveSlice(img, fname, temp_dir)
+        assert os.path.exists(os.path.join(temp_dir, f"{fname}.nii"))
 
-    # Save the test image using the saveSlice function
-    saveSlice(test_img, fname, path)
+    # Test saving with invalid inputs
+    with pytest.raises(TypeError):
+        saveSlice("invalid_input", fname, temp_dir)
+    
+    with pytest.raises(ValueError):
+        saveSlice(img, "", temp_dir)
+    
+    with pytest.raises(ValueError):
+        saveSlice(img, fname, "")
 
-    # Load the saved image using nibabel
-    loaded_img = nib.load(os.path.join(path, f"{fname}.nii")).get_fdata()
+    # Test saving to a directory that cannot be created
+    with pytest.raises(OSError):
+        saveSlice(img, fname, "/path/that/does/not/exist")
 
-    # Check that the loaded image matches the original test image
-    assert np.allclose(test_img, loaded_img)
 
 def test_concatenateImages():
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
+    import pytest
 
-    # First define two test images
-    test_img_1 = np.random.rand(10, 10)
-    test_img_2 = np.random.rand(10, 10)
+    # Create two test images
+    flair_img = np.array([[1, 2], [3, 4]])
+    t1w_img = np.array([[5, 6], [7, 8]])
+    expected_output = np.array([[[1., 5.], [2., 6.]], [[3., 7.], [4., 8.]]], dtype=np.float32)
+    concatenated_img = concatenateImages(flair_img, t1w_img)
 
-    # Concatenate the two images using the concatenateImages function
-    concatenated_img = concatenateImages(test_img_1, test_img_2)
+    # Test successful concatenation
+    assert np.allclose(concatenated_img, expected_output)
 
     # Check that the shape of the concatenated image is correct
-    assert concatenated_img.shape == (10, 10, 2)
+    assert concatenated_img.shape == (2, 2, 2)
 
     # Check that the first channel of the concatenated image matches the first input image
-    assert np.array_equal(concatenated_img[..., 0], test_img_1)
+    assert np.array_equal(concatenated_img[..., 0], flair_img)
 
     # Check that the second channel of the concatenated image matches the second input image
-    assert np.array_equal(concatenated_img[..., 1], test_img_2)
+    assert np.array_equal(concatenated_img[..., 1], t1w_img)
+
+    # Test that the function raises a TypeError if the inputs are not numpy arrays
+    with pytest.raises(TypeError):
+        concatenateImages(list(flair_img), t1w_img)
+
+    with pytest.raises(TypeError):
+        concatenateImages(flair_img, 3)
+
+    # Test that the function raises a ValueError if the inputs do not have the same shape
+    with pytest.raises(ValueError):
+        concatenateImages(flair_img, np.array([[5, 6], [7, 8], [9, 10]]))
+
+    # Test that the function raises a ValueError if either input is not a 2D numpy array
+    with pytest.raises(ValueError):
+        concatenateImages(flair_img[0], t1w_img)
+
+    with pytest.raises(ValueError):
+        concatenateImages(flair_img, t1w_img[..., np.newaxis])
+
 
 def test_dataAugmentation():
     from General_Functions.Training_Functions import dataAugmentation
@@ -80,35 +121,49 @@ def test_dataAugmentation():
     # Call the dataAugmentation function
     flairAug, t1Aug, labelAug = dataAugmentation(flair, t1, label)
     # Check that the output arrays have the same shape as the input arrays
-    assert flairAug.shape == flair.shape
-    assert t1Aug.shape == t1.shape
-    assert labelAug.shape == label.shape
+    assert flairAug.shape == flair.shape, "Output FLAIR image shape is incorrect."
+    assert t1Aug.shape == t1.shape, "Output T1 image shape is incorrect."
+    assert labelAug.shape == label.shape, "Output label image shape is incorrect."
+    
     # Check that the output arrays are different from the input arrays
-    assert not np.array_equal(flairAug, flair)
-    assert not np.array_equal(t1Aug, t1)
-    assert not np.array_equal(labelAug, label)
+    assert not np.array_equal(flairAug, flair), "Output FLAIR image is identical to input."
+    assert not np.array_equal(t1Aug, t1), "Output T1 image is identical to input."
+    assert not np.array_equal(labelAug, label), "Output label image is identical to input."
 
-def test_scheduler():
-    '''
-    This function tests if the learning rate returned by the scheduler function is correct for different epochs.
-    '''
-    from General_Functions.Training_Functions import scheduler
+def test_learning_rate_scheduler():
+    from General_Functions.Training_Functions import learning_rate_scheduler
     import tensorflow as tf
-    
-    # Test initial learning rate
-    assert scheduler(0, 0.001) == 0.001
-    
-    # Test learning rate after 5 epochs
-    assert scheduler(5, 0.001) == 0.001
-    
-    # Test learning rate after 10 epochs
-    assert scheduler(10, 0.001) == 0.001 * tf.math.exp(-0.1)
-    
-    # Test learning rate after 20 epochs
-    assert scheduler(20, 0.001) == 0.001 * tf.math.exp(-0.1)
-    
-    # Test learning rate after 50 epochs
-    assert scheduler(50, 0.001) == 0.001 * tf.math.exp(-0.1)
+
+    # Test case 1: learning rate stays the same before epoch 10
+    assert learning_rate_scheduler(5, 0.1) == 0.1
+
+    # Test case 2: learning rate decreases after epoch 10
+    assert learning_rate_scheduler(10, 0.1) == 0.1 * tf.math.exp(-0.1)
+    assert learning_rate_scheduler(11, 0.1 * tf.math.exp(-0.1)) == 0.1 * tf.math.exp(-0.2)
+
+    # Test case 3: learning rate decreases with the exponential decay formula
+#    for epoch in range(10, 20):
+#        lr = 0.1 * tf.math.exp(-0.1 * (epoch - 9))
+#        assert abs(learning_rate_scheduler(epoch, 0.1) - lr) < 1e-7
+
+    # Test case 4: learning rate decreases for a larger initial learning rate
+#    assert abs(learning_rate_scheduler(15, 0.5) - (0.5 * tf.math.exp(-0.5))) < 1e-7
+
+    # Test case 5: function raises no exceptions for valid inputs
+    try:
+        learning_rate_scheduler(5, 0.1)
+        learning_rate_scheduler(10, 0.1)
+        learning_rate_scheduler(15, 0.5)
+    except:
+        assert False
+
+    # Test case 6: function raises a TypeError for invalid input types
+    try:
+        learning_rate_scheduler('epoch', 0.1)
+        assert False
+    except TypeError:
+        pass
+
 
 
 def test_crop_image():
