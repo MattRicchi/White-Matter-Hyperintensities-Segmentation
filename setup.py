@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 This script contains the Setup_Script function that installs all the required packages.
 Please, always run this to ensure you have all the required packages installed.
@@ -7,6 +8,34 @@ Date: May 2023
 '''
 
 def Setup_Script():
+    '''
+    Set up the Python environment and packages required for the codebase to function.
+
+    Parameters
+    ----------
+    None. 
+
+    Returns
+    -------
+    None.
+
+    Notes
+    -----
+    This function checks for the availability of necessary packages (numpy, nibabel, tqdm, 
+    tensorflow, focal_loss and platform) in the current environment. 
+    If the packages are not installed, it installs them using pip. 
+    Once all the packages are installed, the function prints the CPU platform and a message 
+    to indicate the setup process is complete.
+
+    Example
+    -------
+    >>> Setup_Script()
+        /path/to/current/directory
+        Checking you have all packages needed for the codebase...
+        Using cpu: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
+        All good, off we go!
+    '''
+
     import sys
     import subprocess
     import os
