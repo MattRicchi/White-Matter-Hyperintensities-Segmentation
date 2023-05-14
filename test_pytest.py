@@ -1,15 +1,15 @@
+#!/usr/bin/env python3
 '''
 This script contains all the test functions used to test the code
 
 Author: Mattia Ricchi
 Date: May 2023
 '''
-#!/usr/bin/env python3
 
 def test_readImage_read():
     '''
     This tests that the readImage function correctly reads and opens the desired NIfTI image file.
-    
+
     GIVEN: the file path of a medical image to be read.
     WHEN: the readImage function is called with the path to the medical image file.
     THEN: the function returns the contents of the image file as a NumPy array.
