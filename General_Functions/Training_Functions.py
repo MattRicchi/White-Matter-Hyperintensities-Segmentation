@@ -224,20 +224,20 @@ def learning_rate_scheduler(epoch, learning_rate):
     Notes:
     ------
     This function uses the exponential decay formula to update the learning rate:
-        new_lr = initial_lr * exp(-0.1 * epoch)
+        new_learning_rate = initial_learning_rate * exp(-0.1 * epoch)
     After epoch 10, the learning rate decreases exponentially with a factor of 0.1 at each epoch.
 
     Example:
     --------
     # Define learning rate scheduler function
-    def scheduler(epoch, lr):
+    def scheduler(epoch, learning_rate):
         if epoch < 10:
-            return lr
+            return learning_rate
         else:
-            return lr * tf.math.exp(-0.1)
+            return learning_rate * tf.math.exp(-0.1)
 
     # Set the learning rate scheduler to be used in the training
-    lr_scheduler = tf.keras.callbacks.LearningRateScheduler(scheduler)
+    learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(scheduler)
     '''
     import tensorflow as tf
 

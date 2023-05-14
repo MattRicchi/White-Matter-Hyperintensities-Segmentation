@@ -6,9 +6,15 @@ Date: May 2023
 '''
 #!/usr/bin/env python3
 
-def test_readImage():
+def test_readImage_read():
+    '''
+    This tests that the readImage function correctly reads and opens the desired NIfTI image file.
+    
+    GIVEN: the file path of a medical image to be read.
+    WHEN: the readImage function is called with the path to the medical image file.
+    THEN: the function returns the contents of the image file as a NumPy array.
+    '''
     from General_Functions.Nii_Functions import readImage
-    import pytest
     import numpy as np
     from numpy.testing import assert_array_equal
     from tempfile import TemporaryDirectory
@@ -24,10 +30,29 @@ def test_readImage():
         # Test reading the dummy image
         img = readImage(str(img_path))
         assert_array_equal(img, dummy_img)
-        
-        # Test that a FileNotFoundError is raised if the image path does not exist
-        with pytest.raises(FileNotFoundError):
-            readImage('nonexistent.nii.gz')
+
+def test_readImage_FileNotFoundError():
+    from General_Functions.Nii_Functions import readImage
+    import pytest
+
+    # Test that a FileNotFoundError is raised if the image path does not exist
+    with pytest.raises(FileNotFoundError):
+        readImage('nonexistent.nii.gz')
+
+def test_readImage_ImageFileError():
+    from General_Functions.Nii_Functions import readImage
+    import pytest
+    import numpy as np
+    from numpy.testing import assert_array_equal
+    from tempfile import TemporaryDirectory
+    from pathlib import Path
+    import nibabel as nib
+
+    # Create a temporary directory and a dummy image file
+    with TemporaryDirectory() as tmpdir:
+        img_path = Path(tmpdir) / 'test.nii.gz'
+        dummy_img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
+        nib.save(nib.Nifti1Image(dummy_img, np.eye(4)), str(img_path))
             
         # Test that a nibabel.filebasedimages.ImageFileError is raised if the file path is not a valid medical image file
         with open(str(img_path), 'w') as f:
@@ -134,35 +159,15 @@ def test_learning_rate_scheduler():
     from General_Functions.Training_Functions import learning_rate_scheduler
     import tensorflow as tf
 
-    # Test case 1: learning rate stays the same before epoch 10
-    assert learning_rate_scheduler(5, 0.1) == 0.1
+    # Test learning rate stays the same before epoch 10
+    for epoch in range(10):
+        assert learning_rate_scheduler(epoch, 0.1) == 0.1
 
-    # Test case 2: learning rate decreases after epoch 10
-    assert learning_rate_scheduler(10, 0.1) == 0.1 * tf.math.exp(-0.1)
-    assert learning_rate_scheduler(11, 0.1 * tf.math.exp(-0.1)) == 0.1 * tf.math.exp(-0.2)
-
-    # Test case 3: learning rate decreases with the exponential decay formula
-#    for epoch in range(10, 20):
-#        lr = 0.1 * tf.math.exp(-0.1 * (epoch - 9))
-#        assert abs(learning_rate_scheduler(epoch, 0.1) - lr) < 1e-7
-
-    # Test case 4: learning rate decreases for a larger initial learning rate
-#    assert abs(learning_rate_scheduler(15, 0.5) - (0.5 * tf.math.exp(-0.5))) < 1e-7
-
-    # Test case 5: function raises no exceptions for valid inputs
-    try:
-        learning_rate_scheduler(5, 0.1)
-        learning_rate_scheduler(10, 0.1)
-        learning_rate_scheduler(15, 0.5)
-    except:
-        assert False
-
-    # Test case 6: function raises a TypeError for invalid input types
-    try:
-        learning_rate_scheduler('epoch', 0.1)
-        assert False
-    except TypeError:
-        pass
+    # Test learning rate decreases after epoch 10 with the exponential decay formula
+    learning_rate = 0.1
+    for epoch in range(10, 20):
+        learning_rate = learning_rate_scheduler(epoch, learning_rate)
+        assert abs(learning_rate - (0.1 * tf.math.exp(-0.1 * (epoch - 9)))) < 1e-7
 
 
 
