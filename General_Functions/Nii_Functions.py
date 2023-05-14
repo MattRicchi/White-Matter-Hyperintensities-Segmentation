@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 This script contains all the necessary functions to deal with MR images in .nii format.
 

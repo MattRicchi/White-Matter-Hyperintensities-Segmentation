@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
 '''
 This script contains all the necessary functions for the preprocessing of the MR images. 
 
 Author: Mattia Ricchi
 Date: May 2023
 '''
+
 def crop_image(image, standard_dimensions=256):
     """
     Crop a given 2D image to a specified size around its center.
