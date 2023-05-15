@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 This script contains useful functions for the training of the network. 
 
@@ -107,7 +108,6 @@ def dice_coef_for_training(y_true, y_pred):
     >>> dice_coef_for_training(y_true, y_pred)
     0.8
     """
-    import numpy as np
     import tensorflow.keras as keras
     from keras import backend as K
 
@@ -147,7 +147,6 @@ def dice_coef_loss(y_true, y_pred):
     >>> dice_coef_loss(y_true, y_pred)
     0.16666666666666669
     """
-    import numpy as np
     from General_Functions.Training_Functions import dice_coef_for_training
 
     return -dice_coef_for_training(y_true, y_pred)
@@ -205,7 +204,7 @@ def get_crop_shape(target, refer):
     return (ch1, ch2), (cw1, cw2)
 
 
-def learning_rate_scheduler(epoch, learning_rate):
+def scheduler(epoch, learning_rate):
     '''
     Learning rate scheduler function that decreases the learning rate after epoch 10.
 
