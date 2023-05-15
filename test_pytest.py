@@ -28,7 +28,7 @@ def test_readImage_read():
         
         # Test reading the dummy image
         img = readImage(str(img_path))
-        assert np.array_equal(img, dummy_img)
+        assert np.array_equal(img, dummy_img), "The read image is not equal to the original image."
 
 
 def test_readImage_FileNotFoundError():
@@ -94,9 +94,9 @@ def test_saveSlice_sliceSavedCorrectly():
         
     saveSlice(dummy_img, fname, img_path)
         
-    saved_image = readImage(os.path.join(img_path, f'{fname}.nii'))
+    saved_image = readImage(os.path.join(img_path, f'{fname}.nii')) # The readImage function is tested separately
 
-    assert np.array_equal(dummy_img, saved_image)
+    assert np.array_equal(dummy_img, saved_image), "The saved image is not equal to the original one."
 
 
 def test_saveSlice_invalidInputs():
@@ -152,6 +152,13 @@ def test_saveSlice_nonValid_Dir():
 
 
 def test_concatenateImages_correctConcatenation():
+    '''
+    This is to test that the concatenateImages function correctly concatenates the Flair and T1W images along the third axis into a 3D image.
+
+    GIVEN: a 2D flair and a 2D t1w images
+    WHEN: the concatenateImages is applied to the flair and the t1w images
+    THEN: the function returns a 3D image given by the concatenation of the flair and t1w images along the third axis
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
 
@@ -162,9 +169,16 @@ def test_concatenateImages_correctConcatenation():
     concatenated_img = concatenateImages(flair_img, t1w_img)
 
     # Test successful concatenation
-    assert np.allclose(concatenated_img, expected_output)
+    assert np.allclose(concatenated_img, expected_output), "The concatenated image is not equale to the expected one."
 
 def test_concatenateImages_shape():
+    '''
+    This is to test that the concatenateImages function correctly concatenates the Flair and T1W images along the third axis into a 3D image.
+
+    GIVEN: a 2D flair and a 2D t1w images of dimensions (x, y)
+    WHEN: the concatenateImages is applied to the flair and the t1w images
+    THEN: the function returns a 3D image of dimensions (x, y, 2)
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
 
@@ -174,9 +188,16 @@ def test_concatenateImages_shape():
     concatenated_img = concatenateImages(flair_img, t1w_img)
 
     # Check that the shape of the concatenated image is correct
-    assert concatenated_img.shape == (2, 2, 2)
+    assert concatenated_img.shape == (2, 2, 2), "The shape of the concatenated image is incorrect."
 
 def test_concatenateImages_matchWithOriginalImages():
+    '''
+    This is to test that the concatenateImages function correctly concatenates the Flair and T1W images along the third axis into a 3D image.
+
+    GIVEN: a 2D flair and a 2D t1w images
+    WHEN: the concatenateImages is applied to the flair and the t1w images
+    THEN: the function returns a 3D image with on the first axis the flair image and on the second axis the t1w image
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
 
@@ -186,13 +207,20 @@ def test_concatenateImages_matchWithOriginalImages():
     concatenated_img = concatenateImages(flair_img, t1w_img)
 
     # Check that the first channel of the concatenated image matches the first input image
-    assert np.array_equal(concatenated_img[..., 0], flair_img)
+    assert np.array_equal(concatenated_img[..., 0], flair_img), "The first channel of the concatenated image doesn't match the first input image."
 
     # Check that the second channel of the concatenated image matches the second input image
-    assert np.array_equal(concatenated_img[..., 1], t1w_img)
+    assert np.array_equal(concatenated_img[..., 1], t1w_img), "The second channel of the concatenated image doesn't match the second input image."
 
 
 def test_concatenateImages_inputNotNumpy():
+    '''
+    This is to test that the concatenateImages raises a TypeError when the images in input are not numpy arrays
+
+    GIVEN: flair and t1w images but either one of the two is not a numpy array
+    WHEN: the concatenateImages function is applied to the flair and t1w images
+    THEN: the function returns a TypeError 
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
     import pytest
@@ -210,6 +238,13 @@ def test_concatenateImages_inputNotNumpy():
 
 
 def test_concatenateImages_inputsNotSameShape():
+    '''
+    This is to test that the concatenateImages raises a ValueError if the flair and t1w images do not have the same shape
+
+    GIVEN: flair and t1w images with different shapes 
+    WHEN: the concatenateImages is applied to them
+    THEN: the function returns a ValueError
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
     import pytest
@@ -224,6 +259,13 @@ def test_concatenateImages_inputsNotSameShape():
 
 
 def test_concatenateImages_inputsNot2D():
+    '''
+    This is to test that the concatenateImages raises a ValueError when the images in input are not 2D
+
+    GIVEN: flair and t1w images but either one of the two is not a 2D image
+    WHEN: the concatenateImages function is applied to the flair and t1w images
+    THEN: the function returns a ValueError
+    '''
     from General_Functions.Nii_Functions import concatenateImages
     import numpy as np
     import pytest
@@ -241,6 +283,13 @@ def test_concatenateImages_inputsNot2D():
 
 
 def test_dataAugmentation_shape():
+    '''
+    This is to test that the dataAugmentation function returns flair, t1w and label images with the same shape as the original ones.
+
+    GIVEN: flair image, t1w image and the label image of the same slice
+    WHEN: the dataAugmentation function is applied to the images
+    THEN: the function returns new flair, t1w and label images with the same shape as the originals
+    '''
     from General_Functions.Training_Functions import dataAugmentation
     import numpy as np
 
@@ -259,6 +308,13 @@ def test_dataAugmentation_shape():
 
 
 def test_dataAugmentation_AugmentedDifferentFromInputs():
+    '''
+    This is to test that the dataAugmentation function returns flair, t1w and label new images.
+
+    GIVEN: flair image, t1w image and the label image of the same slice
+    WHEN: the dataAugmentation function is applied to the images
+    THEN: the function returns new flair, t1w and label images
+    '''
     from General_Functions.Training_Functions import dataAugmentation
     import numpy as np
 
@@ -277,15 +333,29 @@ def test_dataAugmentation_AugmentedDifferentFromInputs():
 
 
 def test_scheduler_first10epochs():
+    '''
+    This is to test that the scheduler function leaves the learning rate unchanged for the first ten epochs.
+    
+    GIVEN: the epoch number smaller than 10 and the initial learning rate
+    WHEN: the scheduler function is called 
+    THEN: the learning rate remains unchanged 
+    '''
     from General_Functions.Training_Functions import scheduler
     import tensorflow as tf
     
     # Test learning rate stays the same before epoch 10
     for epoch in range(10):
-        assert scheduler(epoch, 0.1) == 0.1
+        assert scheduler(epoch, 0.1) == 0.1, "Learning rate is not constant for the first 10 epochs."
 
 
 def test_scheduler_learningRateDecreases():
+    '''
+    This is to test that the scheduler function causes the learning rate to decrease exponentially after the first ten epochs.
+    
+    GIVEN: the epoch number grater than 10 and the initial learning rate
+    WHEN: the scheduler function is called 
+    THEN: the learning rate decreases exponentially
+    '''
     from General_Functions.Training_Functions import scheduler
     import tensorflow as tf
 
@@ -294,37 +364,58 @@ def test_scheduler_learningRateDecreases():
     for epoch in range(10, 20):
         learning_rate = scheduler(epoch, learning_rate)
 
-        assert abs(learning_rate - (0.1 * tf.math.exp(-0.1 * (epoch - 9)))) < 1e-7
+        assert abs(learning_rate - (0.1 * tf.math.exp(-0.1 * (epoch - 9)))) < 1e-7, "Learning rate doesn't decrease exponentially."
 
 
-def test_crop_image_biggerImage():
+def test_crop_image_cropShape():
+    '''
+    This is to test that the crop_image function correctly crops the input images to the dimentions (256, 256).
+
+    GIVEN: 2D input image
+    WHEN: the crop_image function is applied to the image
+    THEN: the function returns the input image cropped to have shape (256, 256)
+    '''
     from General_Functions.image_preprocessing import crop_image
     import numpy as np
 
     # Create a test image of size 512x512
     test_image = np.zeros((512, 512))
 
-    # Call crop_image function with standard_dimentions = 256
+    # Call crop_image function
     cropped_image = crop_image(test_image)
 
     # Check if the output image has the correct shape
-    assert cropped_image.shape == (256, 256)
+    assert cropped_image.shape == (256, 256), "Crop shape dosen't match (256, 256)."
 
 
 def test_crop_image_smallerCrop():
+    '''
+    This is to test that the crop_image function correctly crops the input images to the desired dimentions.
+
+    GIVEN: 2D input image
+    WHEN: the crop_image function is applied to the image
+    THEN: the function returns the input image cropped to have the wanted shape
+    '''
     from General_Functions.image_preprocessing import crop_image
     import numpy as np
 
     # Create a test image of size 512x512
     test_image = np.zeros((512, 512))
 
-    # Call crop_image function with standard_dimentions = 128
+    # Call crop_image function with standard_dimensions = 128
     cropped_image = crop_image(test_image, standard_dimensions=128)
 
     # Check if the output image has the correct shape
-    assert cropped_image.shape == (128, 128)
+    assert cropped_image.shape == (128, 128), "Crop shape doesn't match the requested one."
 
-def test_crop_image_oddDimentions():
+def test_crop_image_oddDimensions():
+    '''
+    This is to test that the crop_image function also works correctly with an input image with odd dimensions.
+
+    GIVEN: input image with odd dimensions
+    WHEN: crop_image function is applied to the input image
+    THEN: the function correctly crops the image to have shape equal to (256, 256)
+    '''
     from General_Functions.image_preprocessing import crop_image
     import numpy as np
 
@@ -333,10 +424,17 @@ def test_crop_image_oddDimentions():
     cropped_image = crop_image(test_image)
 
     # Check if the output image has the correct shape
-    assert cropped_image.shape == (256, 256)
+    assert cropped_image.shape == (256, 256), "Crop shape dosen't match (256, 256)."
 
 
 def test_gaussian_normalisation_shape():
+    '''
+    This is to test that the gaussian_normalisation function returns an image with the same shape as the input.
+
+    GIVEN: a 2D image to be normalised and its brain_mask image
+    WHEN: the gaussian_normalisation is applied to the inputs
+    THEN: the function returns an image with the same shape as the input one
+    '''
     from General_Functions.image_preprocessing import gaussian_normalisation
     import numpy as np
 
@@ -352,10 +450,17 @@ def test_gaussian_normalisation_shape():
     normalised_image = gaussian_normalisation(test_image, brain_mask)
 
     # Check if the output image has the correct shape
-    assert normalised_image.shape == (10, 10)
+    assert normalised_image.shape == (10, 10), "Normalised image shape doesn't match the shape of the original image."
 
 
 def test_gaussian_normalisation_mean_std():
+    '''
+    This is to test that the gaussian_normalisation function returns an image with zero mean and unit standard deviation.
+
+    GIVEN: a 2D image to be normalised and its brain_mask image
+    WHEN: the gaussian_normalisation is applied to the inputs
+    THEN: the function returns an image with mean = 0 and standard deviation = 1
+    '''
     from General_Functions.image_preprocessing import gaussian_normalisation
     import numpy as np
 
@@ -371,11 +476,18 @@ def test_gaussian_normalisation_mean_std():
     normalised_image = gaussian_normalisation(test_image, brain_mask)
 
     # Check if the output image has zero mean and unit variance within the brain mask
-    assert np.isclose(np.mean(normalised_image[brain_mask == 1.0]), 0.0, rtol=1e-3)
-    assert np.isclose(np.std(normalised_image[brain_mask == 1.0]), 1.0, rtol=1e-3)
+    assert np.isclose(np.mean(normalised_image[brain_mask == 1.0]), 0.0, rtol=1e-3), "The normalised image mean is not close to 0."
+    assert np.isclose(np.std(normalised_image[brain_mask == 1.0]), 1.0, rtol=1e-3), "the normalised image standard deviation is not close to 1."
 
 
 def test_float32_converter():
+    '''
+    This is to test that the float32_converter function correctly converts the input image array in a float32 array.
+
+    GIVEN: image as a numpy array
+    WHEN: the float32_converter function is applied to the input array
+    THEN: the function returns the same array but as float32
+    '''
     from General_Functions.image_preprocessing import float32_converter
     import numpy as np
 
@@ -386,14 +498,14 @@ def test_float32_converter():
     float32_image = float32_converter(test_image)
 
     # Check if the output image has the correct type
-    assert float32_image.dtype == np.float32
+    assert float32_image.dtype == np.float32, "Image format is not float32."
 
     # Check if the output image has the correct shape and values
-    assert np.allclose(float32_image, np.float32([[1, 2], [3, 4]]))
+    assert np.allclose(float32_image, np.float32([[1, 2], [3, 4]])), "Converted image is not equal to the original one."
     
 
 def test_imagePreProcessing():
-    from General_Functions.image_preprocessing import imagePreProcessing, float32_converter, gaussian_normalisation, crop_image
+    from General_Functions.image_preprocessing import imagePreProcessing, crop_image
     import numpy as np
     # Create a test image of size 512x512 and a corresponding brain mask and label
     test_image = np.random.rand(512, 512)
