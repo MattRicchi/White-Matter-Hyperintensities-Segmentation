@@ -1,12 +1,12 @@
+#!/usr/bin/env python3
 '''
 This script contains the function get_unet that defines the Network used in the ensamble model
 
 Author: Mattia Ricchi
 Date: May 2023
 '''
-#!/usr/bin/env python3
 
-def get_unet():
+def get_unet(inputs):
 
     import os
     import numpy as np
@@ -16,9 +16,6 @@ def get_unet():
     from General_Functions.Training_Functions import get_crop_shape
 
     wpath = os.path.join(os.getcwd(), 'weights', '{}')
-
-    image_shape = (256, 256, 2)
-    inputs = L.Input(shape=image_shape)
 
     conv1 = L.Conv2D(filters=64, kernel_size=5, strides=1, activation='relu',
                      padding='same', data_format='channels_last', name='conv1_1')(inputs)
