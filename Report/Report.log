@@ -1,0 +1,598 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.6.1)  31 MAR 2023 16:03
+entering extended mode
+**./Report.tex
+(Report.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> xparse <2020-03-03>
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/extsizes\extar
+ticle.cls
+Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.cl
+o
+File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/base\exscale.s
+ty
+Package: exscale 2018/09/24 v2.1i Standard LaTeX package exscale
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 57.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 57.
+\big@size=\dimen138
+)
+\c@part=\count179
+\c@section=\count180
+\c@subsection=\count181
+\c@subsubsection=\count182
+\c@paragraph=\count183
+\c@subparagraph=\count184
+\c@figure=\count185
+\c@table=\count186
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen139
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyva
+l.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex
+.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.
+sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count187
+\Gm@cntv=\count188
+\c@Gm@tempcnt=\count189
+\Gm@bindingoffset=\dimen140
+\Gm@wd@mp=\dimen141
+\Gm@odd@mp=\dimen142
+\Gm@even@mp=\dimen143
+\Gm@layoutwidth=\dimen144
+\Gm@layoutheight=\dimen145
+\Gm@layouthoffset=\dimen146
+\Gm@layoutvoffset=\dimen147
+\Gm@dimlist=\toks16
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geome
+try.cfg))
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmat
+h.sty
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstex
+t.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen
+.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen148
+))
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy
+.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen149
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn
+.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count190
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count191
+\leftroot@=\count192
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count193
+\DOTSCASE@=\count194
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen150
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count195
+\c@MaxMatrixCols=\count196
+\dotsspace@=\muskip16
+\c@parentequation=\count197
+\dspbrk@lvl=\count198
+\tag@help=\toks18
+\row@=\count199
+\column@=\count266
+\maxfields@=\count267
+\andhelp@=\toks19
+\eqnshift@=\dimen151
+\alignsep@=\dimen152
+\tagshift@=\dimen153
+\tagwidth@=\dimen154
+\totwidth@=\dimen155
+\lineht@=\dimen156
+\@envbody=\toks20
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssy
+mb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfo
+nts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.
+sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+icx.sty
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graph
+ics.sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.
+sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\g
+raphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\p
+dftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.
+sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip52
+\bibsep=\skip53
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count268
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/caption\captio
+n.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/caption\captio
+n3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen159
+\captionmargin@=\dimen160
+\captionwidth=\dimen161
+\caption@tempdima=\dimen162
+\caption@indent=\dimen163
+\caption@parindent=\dimen164
+\caption@hangindent=\dimen165
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count269
+\c@continuedfloat=\count270
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcap
+tion.sty
+Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
+\c@subfigure=\count271
+\c@subtable=\count272
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multi
+row.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip54
+\multirow@cntb=\count273
+\multirow@dima=\skip55
+\bigstrutjot=\dimen166
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.
+sty
+Package: babel 2021/01/26 3.53 The Babel package
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.
+def
+File: babel.def 2021/01/26 3.53 Babel common definitions
+\babel@savecnt=\count274
+\U@D=\dimen167
+\l@babelnohyphens=\language79
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbab
+el.def)
+\bbl@readstream=\read2
+)
+\bbl@dirlevel=\count275
+
+*************************************
+* Local config file bblopts.cfg used
+*
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.
+cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\
+english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+Package babel Info: \l@canadian = using hyphenrules for english
+(babel)             (\language0) on input line 102.
+Package babel Info: \l@australian = using hyphenrules for ukenglish
+(babel)             (\language73) on input line 105.
+Package babel Info: \l@newzealand = using hyphenrules for ukenglish
+(babel)             (\language73) on input line 108.
+))
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/blindtext\blin
+dtext.sty
+Package: blindtext 2012/01/06 V2.0 blindtext-Package
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\xs
+pace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+\c@blindtext=\count276
+\c@Blindtext=\count277
+\c@blind@countparstart=\count278
+\blind@countxx=\count279
+\blindtext@numBlindtext=\count280
+\blind@countyy=\count281
+\c@blindlist=\count282
+\c@blindlistlevel=\count283
+\c@blindlist@level=\count284
+\blind@listitem=\count285
+\c@blind@listcount=\count286
+\c@blind@levelcount=\count287
+\blind@mathformula=\count288
+\blind@Mathformula=\count289
+\c@blind@randomcount=\count290
+\c@blind@randommax=\count291
+\c@blind@pangramcount=\count292
+\c@blind@pangrammax=\count293
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/was\gensymb.st
+y
+Package: gensymb 2003/07/02 v1.0 (WaS)
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/abstract\abstr
+act.sty
+Package: abstract 2009/06/08 v1.2a configurable abstracts
+\abstitleskip=\skip56
+\absleftindent=\skip57
+\absrightindent=\skip58
+\absparindent=\skip59
+\absparsep=\skip60
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3ba
+ckend-pdftex.def
+File: l3backend-pdftex.def 2021-02-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count294
+\l__pdf_internal_box=\box49
+) (Report.aux (Frontespizio.aux))
+\openout1 = `Report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=674.33032pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-23.91173pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\su
+pp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count295
+\scratchdimen=\dimen168
+\scratchbox=\box50
+\nofMPsegments=\count296
+\nofMParguments=\count297
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count298
+\MPscratchDim=\dimen169
+\MPnumerator=\count299
+\makeMPintoPDFobject=\count300
+\everyMPtoPDFconversion=\toks25
+)
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\e
+pstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Info: Redefining \celsius on input line 29.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 29.
+
+
+
+Package gensymb Warning: Not defining \perthousand.
+
+LaTeX Info: Redefining \ohm on input line 29.
+Package gensymb Info: Using \Omega for \ohm on input line 29.
+
+Package gensymb Warning: Not defining \micro.
+
+\openout2 = `Frontespizio.aux'.
+
+(Frontespizio.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.
+fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
+
+(C:\Users\Probook 455 G6\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.
+fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+{C:/Users/Probook 455 G6/AppData/Local/MiKTeX/pdftex/config/pdftex.map}])
+<images/overlap.png, id=8, 1051.93pt x 395.4775pt>
+File: images/overlap.png Graphic file (type png)
+<use images/overlap.png>
+Package pdftex.def Info: images/overlap.png  used on input line 51.
+(pdftex.def)             Requested size: 455.24411pt x 171.15028pt.
+[1
+
+
+ <./images/overlap.png>]
+<images/dataset_example.png, id=14, 1052.93375pt x 366.36874pt>
+File: images/dataset_example.png Graphic file (type png)
+<use images/dataset_example.png>
+Package pdftex.def Info: images/dataset_example.png  used on input line 75.
+(pdftex.def)             Requested size: 455.24411pt x 158.40198pt.
+ [2 <./images/dataset_example.png>]
+<images/data_augmentation.png, id=19, 1052.93375pt x 287.0725pt>
+File: images/data_augmentation.png Graphic file (type png)
+<use images/data_augmentation.png>
+Package pdftex.def Info: images/data_augmentation.png  used on input line 97.
+(pdftex.def)             Requested size: 455.24411pt x 124.11772pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3]
+<images/U-Net.png, id=26, 1070.19826pt x 419.76825pt>
+File: images/U-Net.png Graphic file (type png)
+<use images/U-Net.png>
+Package pdftex.def Info: images/U-Net.png  used on input line 108.
+(pdftex.def)             Requested size: 455.24411pt x 178.56247pt.
+ [4 <./images/data_augmentation.png> <./images/U-Net.png>] [5] [6]
+<./images//DSC_beforeTraining.png, id=42, 1397.22pt x 832.10875pt>
+File: ./images//DSC_beforeTraining.png Graphic file (type png)
+<use ./images//DSC_beforeTraining.png>
+Package pdftex.def Info: ./images//DSC_beforeTraining.png  used on input line 2
+04.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+ [7]
+<./images//F1_beforeTraining.png, id=46, 1397.22pt x 832.10875pt>
+File: ./images//F1_beforeTraining.png Graphic file (type png)
+<use ./images//F1_beforeTraining.png>
+Package pdftex.def Info: ./images//F1_beforeTraining.png  used on input line 21
+2.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//LR.png, id=47, 373.395pt x 264.99pt>
+File: ./images//LR.png Graphic file (type png)
+<use ./images//LR.png>
+Package pdftex.def Info: ./images//LR.png  used on input line 222.
+(pdftex.def)             Requested size: 298.7164pt x 211.99228pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8 <./images//DSC_beforeTraining.png>]
+<./images//loss_model1.png, id=52, 379.4175pt x 264.99pt>
+File: ./images//loss_model1.png Graphic file (type png)
+<use ./images//loss_model1.png>
+Package pdftex.def Info: ./images//loss_model1.png  used on input line 234.
+(pdftex.def)             Requested size: 204.85846pt x 143.0763pt.
+<./images//loss_model2.png, id=53, 385.44pt x 264.99pt>
+File: ./images//loss_model2.png Graphic file (type png)
+<use ./images//loss_model2.png>
+Package pdftex.def Info: ./images//loss_model2.png  used on input line 241.
+(pdftex.def)             Requested size: 204.85846pt x 140.84029pt.
+<./images//loss_model3.png, id=54, 385.44pt x 264.99pt>
+File: ./images//loss_model3.png Graphic file (type png)
+<use ./images//loss_model3.png>
+Package pdftex.def Info: ./images//loss_model3.png  used on input line 248.
+(pdftex.def)             Requested size: 204.85846pt x 140.84029pt.
+ [9 <./images//F1_beforeTraining.png> <./images//LR.png>]
+<./images//DSC_afterTraining.png, id=60, 1397.22pt x 832.10875pt>
+File: ./images//DSC_afterTraining.png Graphic file (type png)
+<use ./images//DSC_afterTraining.png>
+Package pdftex.def Info: ./images//DSC_afterTraining.png  used on input line 26
+0.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//PRECISION_afterTraining.png, id=61, 1397.22pt x 832.10875pt>
+File: ./images//PRECISION_afterTraining.png Graphic file (type png)
+<use ./images//PRECISION_afterTraining.png>
+Package pdftex.def Info: ./images//PRECISION_afterTraining.png  used on input l
+ine 270.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//RECALL_afterTraining.png, id=62, 1397.22pt x 832.10875pt>
+File: ./images//RECALL_afterTraining.png Graphic file (type png)
+<use ./images//RECALL_afterTraining.png>
+Package pdftex.def Info: ./images//RECALL_afterTraining.png  used on input line
+ 277.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//F1_afterTraining.png, id=63, 1397.22pt x 832.10875pt>
+File: ./images//F1_afterTraining.png Graphic file (type png)
+<use ./images//F1_afterTraining.png>
+Package pdftex.def Info: ./images//F1_afterTraining.png  used on input line 284
+.
+(pdftex.def)             Requested size: 455.24411pt x 271.11777pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//volume-004-007.png, id=64, 884.30376pt x 366.36874pt>
+File: ./images//volume-004-007.png Graphic file (type png)
+<use ./images//volume-004-007.png>
+Package pdftex.def Info: ./images//volume-004-007.png  used on input line 294.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[10 <./images//loss_model1.png> <./images//loss_model2.png> <./images//loss_mod
+el3.png>] [11 <./images//DSC_afterTraining.png> <./images//PRECISION_afterTrain
+ing.png>] [12 <./images//RECALL_afterTraining.png> <./images//F1_afterTraining.
+png>]
+<./images//volume-004-014.png, id=83, 884.30376pt x 366.36874pt>
+File: ./images//volume-004-014.png Graphic file (type png)
+<use ./images//volume-004-014.png>
+Package pdftex.def Info: ./images//volume-004-014.png  used on input line 307.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+<./images//volume-011-150.png, id=84, 884.30376pt x 366.36874pt>
+File: ./images//volume-011-150.png Graphic file (type png)
+<use ./images//volume-011-150.png>
+Package pdftex.def Info: ./images//volume-011-150.png  used on input line 314.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//volume-011-140.png, id=85, 884.30376pt x 366.36874pt>
+File: ./images//volume-011-140.png Graphic file (type png)
+<use ./images//volume-011-140.png>
+Package pdftex.def Info: ./images//volume-011-140.png  used on input line 321.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//volume-038-151.png, id=86, 884.30376pt x 366.36874pt>
+File: ./images//volume-038-151.png Graphic file (type png)
+<use ./images//volume-038-151.png>
+Package pdftex.def Info: ./images//volume-038-151.png  used on input line 328.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./images//volume-038-147.png, id=87, 884.30376pt x 366.36874pt>
+File: ./images//volume-038-147.png Graphic file (type png)
+<use ./images//volume-038-147.png>
+Package pdftex.def Info: ./images//volume-038-147.png  used on input line 335.
+(pdftex.def)             Requested size: 455.24411pt x 188.61212pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13 <./images//volume-004-007.png> <./images//volume-004-014.png>] [14 <./image
+s//volume-011-150.png> <./images//volume-011-140.png>] [15 <./images//volume-03
+8-151.png> <./images//volume-038-147.png>] (Report.bbl) [16
+
+] (Report.aux
+(Frontespizio.aux)) ) 
+Here is how much of TeX's memory you used:
+ 5849 strings out of 479334
+ 93716 string characters out of 2852772
+ 412427 words of memory out of 3000000
+ 23205 multiletter control sequences out of 15000+200000
+ 413147 words of font info for 64 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 68i,7n,74p,690b,462s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Probook 455 G6/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Probook 455 G6/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Probook 455 
+G6/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/
+Users/Probook 455 G6/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb><C:/Users/Probook 455 G6/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmr10.pfb><C:/Users/Probook 455 G6/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Probook 455 G6/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Probo
+ok 455 G6/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb
+><C:/Users/Probook 455 G6/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb><C:/Users/Probook 455 G6/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Probook 455 G6/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on Report.pdf (17 pages, 1433164 bytes).
+PDF statistics:
+ 141 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+

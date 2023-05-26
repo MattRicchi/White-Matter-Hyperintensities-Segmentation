@@ -1,0 +1,48 @@
+\begin{thebibliography}{1}
+
+\bibitem{ventricular_lesions}
+John~Cornelis van Swieten, Johanna H~C van~den Hout, B~A van Ketel, Albert
+  Hijdra, J.~H.~J. Wokke, and Jan van Gijn.
+\newblock Periventricular lesions in the white matter on magnetic resonance
+  imaging in the elderly. a morphometric correlation with arteriolosclerosis
+  and dilated perivascular spaces.
+\newblock {\em Brain: a journal of neurology}, 114 (Pt 2):761--74, 1991.
+
+\bibitem{wmh}
+St{\'e}phanie Debette and H~S Markus.
+\newblock The clinical importance of white matter hyperintensities on brain
+  magnetic resonance imaging: systematic review and meta-analysis.
+\newblock {\em BMJ}, 341, 2010.
+
+\bibitem{manual}
+Commowick at~al.
+\newblock Objective evaluation of multiple sclerosis lesion segmentation using
+  a data management and processing infrastructure.
+\newblock {\em Scientific Reports}, 8(1), 2018.
+
+\bibitem{unet}
+Olaf Ronneberger, Philipp Fischer, and Thomas Brox.
+\newblock U-net: Convolutional networks for biomedical image segmentation.
+\newblock {\em Medical Image Computing and Computer-Assisted Intervention --
+  MICCAI 2015}, pages 234--241, 2015.
+
+\bibitem{fully_conv}
+Hongwei Li, Gongfa Jiang, Jianguo Zhang, Ruixuan Wang, Zhaolei Wang, Wei-Shi
+  Zheng, and Bjoern Menze.
+\newblock Fully convolutional network ensembles for white matter
+  hyperintensities segmentation in mr images.
+\newblock {\em NeuroImage}, 183:650--665, 2018.
+
+\bibitem{deep_learning}
+Buduma Nikhil;~Locascio Nicholas.
+\newblock {\em Fundamentals of Deep Learning: Designing Next-Generation Machine
+  Intelligence Algorithms}.
+\newblock O’Reilly Media, Inc, 2017.
+
+\bibitem{dice_coef}
+Kelly H et~al. Zou.
+\newblock Statistical validation of image segmentation quality based on a
+  spatial overlap index.
+\newblock {\em Academic radiology}, 11(2):178--89, 2004.
+
+\end{thebibliography}

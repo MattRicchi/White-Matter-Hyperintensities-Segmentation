@@ -1,0 +1,97 @@
+\relax 
+\providecommand\babel@aux[2]{}
+\@nameuse{bbl@beforestart}
+\@input{Frontespizio.aux}
+\babel@aux{english}{}
+\citation{ventricular_lesions}
+\citation{wmh}
+\citation{manual}
+\citation{unet}
+\citation{unet}
+\citation{unet}
+\citation{fully_conv}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Example of manual segmentation of WMH\relax }}{1}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:manual_seg}{{1}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Materials and Methods}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Dataset}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Example of an axial slice of the dataset.\relax }}{2}{}\protected@file@percent }
+\newlabel{fig:dataset_example}{{2}{2}}
+\citation{fully_conv}
+\citation{fully_conv}
+\citation{fully_conv}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Image preprocessing}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Data augmentation}{3}{}\protected@file@percent }
+\newlabel{sec:data_aug}{{2.3}{3}}
+\citation{fully_conv}
+\citation{fully_conv}
+\citation{fully_conv}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Example of data augmentation result. From left to right: the original axial slice, slice after rotation, slice after shear mapping and slice after scaling.\relax }}{4}{}\protected@file@percent }
+\newlabel{fig:data_aug}{{3}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}U-Net architecture and Ensemble Model}{4}{}\protected@file@percent }
+\newlabel{sec:unet arch}{{2.4}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 2D Convolutional Network Architecture. It consists of a shrinking part (left side) and an expansive part (right side) to detect and locate WMH respectively. The input includes FLAIR and T1 channels. Image courtesy by \cite  {fully_conv}.\relax }}{4}{}\protected@file@percent }
+\newlabel{fig:unet}{{4}{4}}
+\citation{fully_conv}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Loss functions and parameters}{5}{}\protected@file@percent }
+\newlabel{sec:loss_and_param}{{2.5}{5}}
+\newlabel{eq:focal_loss}{{2}{5}}
+\newlabel{eq:tversky_index}{{3}{5}}
+\citation{deep_learning}
+\newlabel{eq:focal_tversky}{{4}{6}}
+\newlabel{eq:LRscheduler}{{5}{6}}
+\citation{dice_coef}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Evaluation metric}{7}{}\protected@file@percent }
+\newlabel{sec:evaluation_metric}{{2.6}{7}}
+\newlabel{eq:recall}{{7}{7}}
+\newlabel{eq:precision}{{8}{7}}
+\newlabel{eq:f1}{{9}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results and Discussion}{8}{}\protected@file@percent }
+\newlabel{sec:results}{{3}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Dice Similarity Coefficient for the test volumes before training the network.\relax }}{8}{}\protected@file@percent }
+\newlabel{fig:DSC_beforeTraining}{{5}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces F1 score for the test volumes before training the network.\relax }}{9}{}\protected@file@percent }
+\newlabel{fig:F1_beforeTraining}{{6}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Learning Rate as a function of the epoch number.\relax }}{9}{}\protected@file@percent }
+\newlabel{fig:LR}{{7}{9}}
+\newlabel{fig:loss_model1}{{8a}{10}}
+\newlabel{sub@fig:loss_model1}{{a}{10}}
+\newlabel{fig:loss_model2}{{8b}{10}}
+\newlabel{sub@fig:loss_model2}{{b}{10}}
+\newlabel{fig:loss_model3}{{8c}{10}}
+\newlabel{sub@fig:loss_model3}{{c}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Loss function for the three models as a function of the epoch number.\relax }}{10}{}\protected@file@percent }
+\newlabel{fig:loss_models}{{8}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Dice Similarity Coefficient for the test volumes after training the network.\relax }}{11}{}\protected@file@percent }
+\newlabel{fig:DSC_afterTraining}{{9}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Precision for the test volumes after training the network.\relax }}{11}{}\protected@file@percent }
+\newlabel{fig:PRECISION_afterTraining}{{10}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Recall for the test volumes after training the network.\relax }}{12}{}\protected@file@percent }
+\newlabel{fig:RECALL_afterTraining}{{11}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces F1 score for the test volumes after training the network.\relax }}{12}{}\protected@file@percent }
+\newlabel{fig:F1_afterTraining}{{12}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Segmentation result for slice 7 of patient 4.\relax }}{13}{}\protected@file@percent }
+\newlabel{fig:volume-004-007}{{13}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Segmentation result for slice 14 of patient 4.\relax }}{13}{}\protected@file@percent }
+\newlabel{fig:volume-004-014}{{14}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusions}{13}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Segmentation result for slice 150 of patient 11.\relax }}{14}{}\protected@file@percent }
+\newlabel{fig:volume-011-150}{{15}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Segmentation result for slice 140 of patient 11.\relax }}{14}{}\protected@file@percent }
+\newlabel{fig:volume-011-140}{{16}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Segmentation result for slice 151 of patient 38.\relax }}{15}{}\protected@file@percent }
+\newlabel{fig:volume-038-151}{{17}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Segmentation result for slice 147 of patient 38.\relax }}{15}{}\protected@file@percent }
+\newlabel{fig:volume-038-147}{{18}{15}}
+\bibstyle{unsrt}
+\bibdata{sample.tex}
+\bibcite{ventricular_lesions}{{1}{}{{}}{{}}}
+\bibcite{wmh}{{2}{}{{}}{{}}}
+\bibcite{manual}{{3}{}{{}}{{}}}
+\bibcite{unet}{{4}{}{{}}{{}}}
+\bibcite{fully_conv}{{5}{}{{}}{{}}}
+\bibcite{deep_learning}{{6}{}{{}}{{}}}
+\bibcite{dice_coef}{{7}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{17}
