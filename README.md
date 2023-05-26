@@ -37,6 +37,12 @@ subprocess
 which do not require to be installed as they are part of the standard Python library. 
 The `Setup_Script()` function will install all necessary requirements automatically upon the first launch of the script.
 
->Always run the `Setup_Script()` function to ensure you have all the packages you need to rune the codebase.
+>Always run the `Setup_Script()` function to ensure you have all the packages you need to run the codebase.
 
 ## Running tests
+
+The tests for all the functions, are contained in the `test_pytest.py` script. To run them it is necessary to be in the White-Matter-Hyperintensities-Segmentation directory and to have installed the pytest package. Then it is enough to run the `pytest` command:
+```
+pytest
+```
+The scripts were written in `Python 3.11.0` on `Windows 11`, and the functions were tested in the same environment.
