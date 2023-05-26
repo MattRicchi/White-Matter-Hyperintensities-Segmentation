@@ -15,9 +15,28 @@ The repository is structured as follows:
   * `training.py` script that contains the code to train and test the model;
   * `unet.py` script with the `get_unet()` function defining the network used in the ensemble model;
   * `test_pytest.py` script containing all test functions.
-* The [General_Functions](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/General_Functions) directory includes three scripts containing the necessary functions to correctly handle with .nii files, and all the functions for the preprocessing and training stages:
-  * `Nii_Functions.py`
+* The [General_Functions](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/General_Functions) directory includes three scripts containing the necessary functions to correctly handle with medical images in the NIfTI format, and all the functions for the preprocessing and training stages:
+  * `Nii_Functions.py` 
   * `image_preprocessing.py`
   * `Training_Functions.py`
-  
-  
+* The `test_folder` contains the images created during the testing of all the functions.
+
+## Installation
+
+To clone the git repository, type the following commands from terminal:
+```
+git clone https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation.git
+cd White-Matter-Hyperintensities-Segmentation
+```
+The required packages are:
+``` 
+os
+sys
+subprocess
+```
+which do not require to be installed as they are part of the standard Python library. 
+The `Setup_Script()` function will install all necessary requirements automatically upon the first launch of the script.
+
+>Always run the `Setup_Script()` function to ensure you have all the packages you need to rune the codebase.
+
+## Running tests
