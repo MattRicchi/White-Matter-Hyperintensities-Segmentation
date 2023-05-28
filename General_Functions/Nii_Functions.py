@@ -10,24 +10,24 @@ def readImage(imgPath):
     """
     Reads in a medical image from a file and returns its data as a NumPy array.
 
-    Parameters:
+    Parameters
     -----------
-    imgPath : str
+    imgPath: str
         The file path of the medical image to be read.
 
-    Returns:
+    Returns
     --------
-    image : ndarray
+    image: ndarray
         A NumPy array containing the data of the medical image.
     
-    Raises:
+    Raises
     -------
     FileNotFoundError
         If the specified file path does not exist.
     nibabel.filebasedimages.ImageFileError
         If the specified file path is not a valid medical image file.
 
-    Example:
+    Example
     ---------
     >>> readImage('example.nii.gz')
     array([[[ 0.11,  0.22,  0.33],
@@ -56,14 +56,14 @@ def saveSlice(img, fname, path):
 
     Parameters
     ----------
-    img : array-like
+    img: array-like
         The image data to be saved. This can be a NumPy array or any other
         array-like object that can be converted to a NumPy array.
-    fname : str
+    fname: str
         The file name to be used for saving the image, without the file
         extension. For example, if `fname` is "image" then the saved file
         will be named "image.nii".
-    path : str
+    path: str
         The directory path where the image file will be saved. If the path
         does not exist, it will be created.
 
@@ -124,14 +124,14 @@ def concatenateImages(flair_img, t1w_img):
 
     Parameters
     ----------
-    flair_img : array-like
+    flair_img: array-like
         A NumPy array containing the first 2D image to be concatenated.
-    t1w_img : array-like
+    t1w_img: array-like
         A NumPy array containing the second 2D image to be concatenated.
 
     Returns
     -------
-    FLAIR_and_T1W_image : ndarray
+    FLAIR_and_T1W_image: ndarray
         A 3D NumPy array containing the two 2D images concatenated along the third dimension.
 
     Raises
