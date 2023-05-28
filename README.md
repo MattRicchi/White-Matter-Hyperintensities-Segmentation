@@ -19,7 +19,8 @@ The repository is structured as follows:
   * `Nii_Functions.py` 
   * `image_preprocessing.py`
   * `Training_Functions.py`
-* The `test_folder` contains the images created during the testing of all the functions.
+* The `test_folder` contains the images created during the testing of all the functions;
+* The [Report](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/Report) directory contains the .tex files used to write the final report of the project.
 
 ## Installation
 
