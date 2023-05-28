@@ -8,32 +8,26 @@ Date: May 2023
 
 def crop_image(image, standard_dimensions=256):
     """
-    Crop a given 2D image to a specified size around its center.
+    This function crops the given 2D image to the specified size around its center, such that the cropped image has
+    the same number of rows and columns as the specified crop size.
 
     Parameters
     ----------
-    image : numpy.ndarray
+    image: numpy.ndarray
         The 2D image to be cropped.
-    standard_dimensions : int, optional
+    standard_dimensions: int, optional
         The desired size of the cropped image. Default is 256.
 
     Returns
     -------
-    cropped_image : numpy.ndarray
+    cropped_image: numpy.ndarray
         The cropped image.
 
     Raises
     ------
-    TypeError
-        If the input image is not a numpy array.
     ValueError
         If the input image is not a 2D array.
         If the dimensions of the input image are smaller than the specified crop size.
-
-    Notes
-    -----
-    This function crops the image to the specified size around its center, such that the cropped image has
-    the same number of rows and columns as the specified crop size.
 
     Example
     -------
@@ -48,8 +42,6 @@ def crop_image(image, standard_dimensions=256):
     (image_rows, image_columns) = image.shape
 
     # Check inputs for correctness
-    if not isinstance(image, np.ndarray):
-        raise TypeError("Input image must be a numpy array.")
     if not image.ndim == 2:
         raise ValueError("Input image must be a 2D array.")
 
@@ -68,32 +60,32 @@ def gaussian_normalisation(image, brain_mask):
     """
     Apply Gaussian normalization to an image using the mean and standard deviation within a brain mask.
 
-    Parameters:
+    Parameters
     ----------
-    image : np.ndarray
+    image: np.ndarray
         The input image to be normalized.
-    brain_mask : np.ndarray
+    brain_mask: np.ndarray
         A binary mask indicating the region of the brain in the image.
 
-    Returns:
+    Returns
     -------
     np.ndarray
         The normalized image.
 
-    Raises:
+    Raises
     -------
     TypeError 
         If either image or brain_mask is not a numpy.ndarray.
     ValueError
         If the shapes of the image and brain_mask arrays do not match.
 
-    Notes:
+    Notes
     -----
     Gaussian normalization is a technique commonly used in medical imaging to adjust the intensity of images to have a
     zero mean and unit variance. This is done to reduce the impact of intensity variations due to scanner artifacts
     and other factors.
 
-    Example:
+    Example
     -------
     >>> image = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
     >>> brain_mask = np.array([[0, 0, 0], [1, 1, 1], [1, 1, 1]])
@@ -123,25 +115,19 @@ def gaussian_normalisation(image, brain_mask):
     return normalised_image
 
 
-
 def float32_converter(image):
     """
     Converts the input image to a float32 numpy array.
 
     Parameters
     ----------
-    image : ndarray
+    image: ndarray
         Input image as a numpy array.
 
     Returns
     -------
     ndarray
         Float32 numpy array.
-
-    Raises
-    ------
-    TypeError
-        If the input image is not a numpy array.
 
     Notes
     -----
@@ -159,9 +145,6 @@ def float32_converter(image):
     """
     import numpy as np
 
-    if not isinstance(image, np.ndarray):
-        raise TypeError("Input image must be a numpy array.")
-
     image_float32 = np.float32(image)
 
     return image_float32
@@ -170,52 +153,44 @@ def float32_converter(image):
 
 def imagePreProcessing(image, brain_mask, label):
     """
-    Applies a series of preprocessing steps to an input image, brain mask, and label.
-
-    Parameters:
-    -----------
-    image : numpy.ndarray
-        The input image to be preprocessed.
-    brain_mask : numpy.ndarray
-        A mask of the brain volume within the input image.
-    label : numpy.ndarray
-        The label for the input image.
-
-    Returns:
-    --------
-    Tuple[numpy.ndarray, numpy.ndarray]
-        A tuple containing the preprocessed image and label.
-
-    Raises:
-    -------
-    TypeError
-        If the input image, brain mask, or label is not a numpy array.
-    ValueError
-        If the input image, brain mask, or label is not a 2D array.
-        If the input image, brain mask, or label does not have the same shape.
-
-    Notes:
-    ------
     This function applies the following preprocessing steps to the input image and mask:
     1. Converts the input image, brain mask, and label to a float32 data type.
     2. Crops the image, brain mask, and label to standard dimensions of 256x256.
     3. Normalizes the image using a Gaussian distribution with zero mean and unit variance over the brain volume.
 
-    Example:
+    Parameters
+    -----------
+    image: numpy.ndarray
+        The input image to be preprocessed.
+    brain_mask: numpy.ndarray
+        A mask of the brain volume within the input image.
+    label: numpy.ndarray
+        The label for the input image.
+
+    Returns
     --------
-    >>> image = np.random.rand(176, 256, 256)
-    >>> brain_mask = np.random.rand(176, 256, 256)
-    >>> label = np.random.rand(176, 256, 256)
+    Tuple[numpy.ndarray, numpy.ndarray]
+        A tuple containing the preprocessed image and label.
+
+    Raises
+    -------
+    ValueError
+        If the input image, brain mask, or label is not a 2D array.
+        If the input image, brain mask, or label does not have the same shape.
+
+    Example
+    --------
+    >>> image = np.random.rand(512, 512)
+    >>> brain_mask = np.random.rand(512, 512)
+    >>> label = np.random.rand(512, 512)
     >>> preprocessed_image, preprocessed_label = imagePreProcessing(image, brain_mask, label)
     """
     import numpy as np
     from General_Functions.image_preprocessing import float32_converter, crop_image, gaussian_normalisation
 
-    # Check inputs are numpy arrays and have the correct dimensions
-    if not all(isinstance(arr, np.ndarray) for arr in [image, brain_mask, label]):
-        raise TypeError("Input image, brain mask, and label must be numpy arrays.")
+    # Check for input correctness
     if not all(arr.ndim == 2 for arr in [image, brain_mask, label]):
-        raise ValueError("Input image, brain mask, and label must be 3D arrays.")
+        raise ValueError("Input image, brain mask, and label must be 2D arrays.")
     if not all(arr.shape == image.shape for arr in [brain_mask, label]):
         raise ValueError("Input image, brain mask, and label must have the same shape.")
 
