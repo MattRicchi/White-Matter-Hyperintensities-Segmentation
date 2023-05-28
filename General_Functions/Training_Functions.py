@@ -8,30 +8,22 @@ Date: May 2023
 
 def dataAugmentation(flair, t1, label):
     """
-    Applies random transformations to the input images for data augmentation.
+    This function applies random transformations to the input images to increase the size of the dataset
+    and improve the performance of the model. The transformations include rotation, shear, and zoom.
 
     Parameters
     ----------
-    flair : numpy.ndarray
+    flair: numpy.ndarray
         A 2D array containing the FLAIR image.
-    t1 : numpy.ndarray
+    t1: numpy.ndarray
         A 2D array containing the T1 image.
-    label : numpy.ndarray
+    label: numpy.ndarray
         A 2D array containing the ground truth segmentation label.
 
     Returns
     -------
     numpy.ndarray, numpy.ndarray, numpy.ndarray
         Three 2D arrays containing the augmented FLAIR, T1, and label images.
-
-    Raises
-    ------
-    None
-
-    Notes
-    -----
-    This function applies random transformations to the input images to increase the size of the dataset
-    and improve the performance of the model. The transformations include rotation, shear, and zoom.
 
     Example
     -------
@@ -74,19 +66,15 @@ def dice_coef_for_training(y_true, y_pred):
 
     Parameters
     ----------
-    y_true : array-like
+    y_true: array-like
         The ground truth labels.
-    y_pred : array-like
+    y_pred: array-like
         The predicted labels.
 
     Returns
     -------
-    dice_coef : float
+    dice_coef: float
         The dice coefficient between the ground truth labels and the predicted labels.
-
-    Raises
-    ------
-    None.
 
     Notes
     -----
@@ -125,9 +113,9 @@ def dice_coef_loss(y_true, y_pred):
     
     Parameters
     ----------
-    y_true : numpy.ndarray
+    y_true: numpy.ndarray
         The ground truth segmentation maps with shape (batch_size, height, width).
-    y_pred : numpy.ndarray
+    y_pred: numpy.ndarray
         The predicted segmentation maps with shape (batch_size, height, width).
 
     Returns
@@ -156,28 +144,24 @@ def get_crop_shape(target, refer):
     '''
     Calculate the crop shape necessary to match the dimensions of two tensors.
 
-    Parameters:
+    Parameters
     -----------
-    target : tensor
+    target: tensor
         The tensor to be cropped.
-    refer : tensor
+    refer: tensor
         The tensor whose dimensions will be matched.
 
-    Returns:
+    Returns
     --------
     Tuple of two tuples of integers, each containing two values:
     - The first tuple contains the crop amounts for the height dimension (second dimension of the tensors).
     - The second tuple contains the crop amounts for the width dimension (third dimension of the tensors).
 
-    Raises:
+    Raises
     -------
-    AssertionError : if the target tensor's dimensions are smaller than the reference tensor's dimensions.
+    AssertionError: if the target tensor's dimensions are smaller than the reference tensor's dimensions.
 
-    Notes:
-    ------
-    This function is useful for cropping tensors to match the dimensions of other tensors in deep learning models.
-
-    Example:
+    Example
     --------
     >>> target = tf.zeros([4, 10, 8, 3])
     >>> refer = tf.zeros([4, 8, 6, 3])
@@ -206,27 +190,23 @@ def get_crop_shape(target, refer):
 
 def scheduler(epoch, learning_rate):
     '''
-    Learning rate scheduler function that decreases the learning rate after epoch 10.
-
-    Parameters:
-    -----------
-    epoch : int
-        Current epoch number
-    learning_rate : float
-        Current learning rate value
-
-    Returns:
-    --------
-    float
-        Updated learning rate value based on the epoch number
-
-    Notes:
-    ------
     This function uses the exponential decay formula to update the learning rate:
         new_learning_rate = initial_learning_rate * exp(-0.1 * epoch)
     After epoch 10, the learning rate decreases exponentially with a factor of 0.1 at each epoch.
 
-    Example:
+    Parameters
+    -----------
+    epoch: int
+        Current epoch number
+    learning_rate: float
+        Current learning rate value
+
+    Returns
+    --------
+    float
+        Updated learning rate value based on the epoch number
+
+    Example
     --------
     # Define learning rate scheduler function
     def scheduler(epoch, learning_rate):
