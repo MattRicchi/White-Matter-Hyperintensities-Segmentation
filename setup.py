@@ -69,6 +69,10 @@ def Setup_Script():
         import platform
     except:
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'platform'])
+    try:
+        import cv2
+    except:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'opencv-python'])
     
     print('Using cpu: ' + platform.processor())
     print('All good, off we go!')
