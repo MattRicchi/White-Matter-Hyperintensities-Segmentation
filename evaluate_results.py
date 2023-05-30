@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+
 from setup import Setup_Script
 
+# Check everything is correctly setted before running the script
 Setup_Script()
 
 import os
