@@ -9,13 +9,9 @@ Date: May 2023
 def get_unet(inputs):
 
     import os
-    import numpy as np
-    import tensorflow as tf
     import tensorflow.keras as keras
     from tensorflow.keras import layers as L
     from General_Functions.Training_Functions import get_crop_shape
-
-    wpath = os.path.join(os.getcwd(), 'weights', '{}')
 
     conv1 = L.Conv2D(filters=64, kernel_size=5, strides=1, activation='relu',
                      padding='same', data_format='channels_last', name='conv1_1')(inputs)
