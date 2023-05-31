@@ -9,7 +9,11 @@ Date: May 2023
 
 def Setup_Script():
     '''
-    Set up the Python environment and packages required for the codebase to function.
+    This function checks for the availability of necessary packages (numpy, nibabel, tqdm, 
+    tensorflow, focal_loss and platform) in the current environment. 
+    If the packages are not installed, it installs them using pip. 
+    Once all the packages are installed, the function prints the CPU platform and a message 
+    to indicate the setup process is complete.
 
     Parameters
     ----------
@@ -18,14 +22,6 @@ def Setup_Script():
     Returns
     -------
     None.
-
-    Notes
-    -----
-    This function checks for the availability of necessary packages (numpy, nibabel, tqdm, 
-    tensorflow, focal_loss and platform) in the current environment. 
-    If the packages are not installed, it installs them using pip. 
-    Once all the packages are installed, the function prints the CPU platform and a message 
-    to indicate the setup process is complete.
 
     Example
     -------
