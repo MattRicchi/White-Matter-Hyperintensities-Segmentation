@@ -13,6 +13,7 @@ import numpy as np
 from tqdm import tqdm
 import tensorflow as tf
 import tensorflow.keras as keras
+from os.path import join
 from tensorflow.keras import layers as L
 from keras.callbacks import ModelCheckpoint
 from keras import backend as K
@@ -27,13 +28,16 @@ from General_Functions.Nii_Functions import readImage, concatenateImages, saveSl
 Total_Start = time.time()
 
 # Define all the necessary paths
-data_path = os.path.join(os.getcwd(), 'DATABASE/')
-flair_path = os.path.join(data_path, 'OnlyBrain/flair/')
-t1w_path = os.path.join(data_path, 'OnlyBrain/t1w/')
-label_path = os.path.join(data_path, 'OnlyBrain/label/')
-brain_path = os.path.join(data_path, 'brain/')
-weights_path = os.path.join(os.getcwd(), 'weights', '{}')
-results_path = os.path.join(os.getcwd(), 'Results/')
+data_path = join(os.getcwd(), 'DATABASE')
+results_path = join(os.getcwd(), 'Results')
+flair_path = join(data_path, 'OnlyBrain/flair/')
+t1w_path = join(data_path, 'OnlyBrain/t1w/')
+label_path = join(data_path, 'OnlyBrain/label/')
+brain_path = join(data_path, 'brain/')
+weights_path = join(os.getcwd(), 'weights', '{}')
+
+# Define the id of test patients
+test_patients = [4, 11, 15, 38, 48, 57]
 
 # Define the shape of the input images
 image_shape = (256, 256, 2)
@@ -51,7 +55,7 @@ _ = model0.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5), loss=
 # Second model of the ensemble
 model1 = get_unet(inputs)
 _ = model1.load_weights(weights_path.format('1.h5'))
-_ = model1.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-6), loss=BinaryFocalLoss(gamma=2), metrics=[binary_focal_loss])
+_ = model1.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-6), loss=BinaryFocalLoss(gamma=1), metrics=[binary_focal_loss])
 
 # Third model of the ensemble
 model2 = get_unet(inputs)
@@ -65,7 +69,7 @@ model2.summary()
 
 # Define model Checkpoint and Callbacks
 checkpointer = ModelCheckpoint('model_for_hyperintensities.h5', verbose = 1, save_weights_only = True)
-callback = [keras.callbacks.LearningRateScheduler(scheduler, verbose=0), keras.callbacks.EarlyStopping(monitor = 'val_loss', patience = 15)]
+callback = [keras.callbacks.LearningRateScheduler(scheduler, verbose=1), keras.callbacks.EarlyStopping(monitor = 'val_loss', patience = 15)]
 
 # Get the ID of the images 
 image_ids = next(os.walk(flair_path))[2]
@@ -83,10 +87,10 @@ Image_IDs = np.empty(0)
 # Iterate over the image IDs and save the images as Train or Test image
 print('Building X_train, Y_train and X_test... ')
 for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
-    flair_image = readImage(os.path.join(flair_path, f'{id_}'))
-    t1w_image = readImage(os.path.join(t1w_path, f'{id_}'))
-    label_image = readImage(os.path.join(label_path, f'{id_}'))
-    brain_mask = readImage(os.path.join(brain_path, f'{id_}'))
+    flair_image = readImage(join(flair_path, f'{id_}'))
+    t1w_image = readImage(join(t1w_path, f'{id_}'))
+    label_image = readImage(join(label_path, f'{id_}'))
+    brain_mask = readImage(join(brain_path, f'{id_}'))
 
     (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
     (t1w_image, label_image) = imagePreProcessing(t1w_image, brain_mask, label_image)
@@ -100,13 +104,20 @@ for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
     
     # Sort images out basing on the patient number
     patient_number = int(id_[7:10])
-    if patient_number < 56:
+    if patient_number in test_patients:
+        # Image will be used for testing
+        TEST_IMAGES = np.append(TEST_IMAGES, FLAIR_and_T1W_image, axis = 0)
+        Image_IDs = np.append(Image_IDs, image_ids[n])
+        
+    else:    
         # Image is classified as a training image
         TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
         TRAIN_LABELS = np.append(TRAIN_LABELS, label_image, axis = 0)
+        
+        # If there are labelled lesions in the slice, apply data augmentation 10 times
         if id_[:14] in labeled_ids:
             labelImg = label_image[0, :, :, 0]
-            for k in range(0, 5):
+            for k in range(0, 9):
                 flairAug, t1Aug, labelAug = dataAugmentation(flair_image, t1w_image, labelImg)
                 FLAIR_and_T1W_image = concatenateImages(flairAug, t1Aug)
                 FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
@@ -114,10 +125,6 @@ for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
                 TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
                 TRAIN_LABELS = np.append(TRAIN_LABELS, labelAug, axis = 0)
                 k += 1
-    else:
-        # Image will be used for testing
-        TEST_IMAGES = np.append(TEST_IMAGES, FLAIR_and_T1W_image, axis = 0)
-        Image_IDs = np.append(Image_IDs, image_ids[n])
 
 # Fit the model
 print('Starting to fit the models in the enseble, will take a while...')
@@ -132,7 +139,7 @@ end = time.time()
 
 print('Time spent training the network: ',(end - start)/(60*60), ' hours')
 
-print('Starting to test the models...')
+print('Starting to test the network...')
 
 start = time.time()
 
@@ -168,4 +175,4 @@ model2.save_weights(os.path.join(os.getcwd(), 'weights/model2.h5'))
 
 Total_End = time.time()
 
-print("All done! Total time for script: ",(Total_End - Total_Start)/(60*60), ' hours')
+print("All done! Total time for script: ", (Total_End - Total_Start)/(60*60), ' hours')
