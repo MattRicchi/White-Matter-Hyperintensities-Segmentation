@@ -34,7 +34,7 @@ flair_path = join(data_path, 'OnlyBrain/flair/')
 t1w_path = join(data_path, 'OnlyBrain/t1w/')
 label_path = join(data_path, 'OnlyBrain/label/')
 brain_path = join(data_path, 'brain/')
-weights_path = join(os.getcwd(), 'weights', '{}')
+weights_path = join(os.getcwd(), 'weights/')
 
 # Define the id of test patients
 test_patients = [4, 11, 15, 38, 48, 57]
@@ -49,17 +49,14 @@ print('Loading and compiling the three models of the ensemble')
 
 # First model of the ensemble
 model0 = get_unet(inputs)
-_ = model0.load_weights(weights_path.format('0.h5'))
 _ = model0.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5), loss=dice_coef_loss, metrics=[dice_coef_loss])
 
 # Second model of the ensemble
 model1 = get_unet(inputs)
-_ = model1.load_weights(weights_path.format('1.h5'))
 _ = model1.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-6), loss=BinaryFocalLoss(gamma=1), metrics=[binary_focal_loss])
 
 # Third model of the ensemble
 model2 = get_unet(inputs)
-_ = model2.load_weights(weights_path.format('2.h5'))
 _ = model2.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5), loss=BinaryFocalLoss(gamma=2), metrics=[binary_focal_loss])
 
 # Visually check that the model is correctly compiled
@@ -169,9 +166,9 @@ for i in tqdm(range(preds_test_t.shape[0])):
     saveSlice(nib.Nifti1Image(preds_test_t[i, :, :, 0], np.eye(4)), f'volume-{str(patient_number).zfill(SLICE_DECIMATE_IDENTIFIER)}-{str(slice_number).zfill(SLICE_DECIMATE_IDENTIFIER)}', results_path)
     
 # Save the weights of the trained network
-model0.save_weights(os.path.join(os.getcwd(), 'weights/model0.h5'))
-model1.save_weights(os.path.join(os.getcwd(), 'weights/model1.h5'))
-model2.save_weights(os.path.join(os.getcwd(), 'weights/model2.h5'))
+model0.save_weights(join(weights_path, 'model0.h5'))
+model1.save_weights(join(weights_path, 'model1.h5'))
+model2.save_weights(join(weights_path, 'model2.h5'))
 
 Total_End = time.time()
 
