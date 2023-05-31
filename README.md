@@ -14,7 +14,9 @@ The repository is structured as follows:
   * `setup.py` script with the `Setup_Script()` function that installs all necessary packages before running any other script;
   * `training.py` script that contains the code to train and test the model;
   * `unet.py` script with the `get_unet()` function defining the network used in the ensemble model;
-  * `test_pytest.py` script containing all test functions.
+  * `test_pytest.py` script containing all test functions;
+  * `evaluate_results.py` script to compute the Dice Similarity Coefficient, Precision, Recall and F1 score for each test patient and to plot the boxplot of every evaluation metric;
+  * `plot_images.py` script to display the flair image, ground turth and segmentation result for every test patient.
 * The [General_Functions](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/General_Functions) directory includes three scripts containing the necessary functions to correctly handle with medical images in the NIfTI format, and all the functions for the preprocessing and training stages:
   * `Nii_Functions.py` 
   * `image_preprocessing.py`
