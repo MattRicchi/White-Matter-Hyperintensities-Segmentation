@@ -17,10 +17,11 @@ The repository is structured as follows:
   * `test_pytest.py` script containing all test functions;
   * `evaluate_results.py` script to compute the Dice Similarity Coefficient, Precision, Recall and F1 score for each test patient and to plot the boxplot of every evaluation metric;
   * `plot_images.py` script to display the flair image, ground turth and segmentation result for every test patient.
-* The [General_Functions](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/General_Functions) directory includes three scripts containing the necessary functions to correctly handle with medical images in the NIfTI format, and all the functions for the preprocessing and training stages:
+* The [General_Functions](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/General_Functions) directory includes three scripts containing the necessary functions to correctly handle with medical images in the NIfTI format, and all the functions for the preprocessing, training and postprocessing stages:
   * `Nii_Functions.py` 
   * `image_preprocessing.py`
   * `Training_Functions.py`
+  * `postprocessing.py`
 * The `test_folder` contains the images created during the testing of all the functions;
 * The [Report](https://github.com/MattRicchi/White-Matter-Hyperintensities-Segmentation/tree/main/Report) directory contains the .tex files used to write the final report of the project.
 
@@ -49,3 +50,24 @@ The tests for all the functions, are contained in the `test_pytest.py` script. T
 pytest
 ```
 The scripts were written in `Python 3.11.0` on `Windows 11`, and the functions were tested in the same environment.
+
+## How to train the network
+
+To begin the network training, you simply have to execute the `training.py` script. Please, make sure that the `DATABASE` folder has the required data and is situated in the same directory as the script. Moreover, the `DATABASE` folder should have two subfolders: 
+* `OnlyBrain`, which contains brain-extracted images sorted into the following categories: 
+  * `flair` with brain-extracted flair images
+  * `t1w` with brain-extracted T1 weighted images
+  * `label` with ground truth images
+* `brain` which includes brain mask images
+
+If you need to perform brain extraction on your data, you may utilize the [fslpy wrapper BET](https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/master/fsl/wrappers/bet.py) provided by fsl. [Here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/BET/UserGuide) you can find the BET userguide.
+
+The `training.py` script automatically splits the images into training and testing categories. Images of patients 4, 11, 15, 38, 48, and 59 will be reserved for testing purposes to evaluate the network's performance.
+
+Once the training and testing stages are complete, the ultimate segmented images are stored in the NIfTI format under the same ID as the initial flair image.
+
+## Evaluate network performance
+
+To assess the accuracy of the network's segmentation maps, you can utilize the `evaluation.py` script. This script calculates various metrics such as Dice Similarity Coefficient, Precision, Recall, and F1 score for each test patient. Additionally, it generates a boxplot illustrating the evaluation metrics for every test patient.
+![BoxPlot_example](Report/image/BoxPlot_Example.png)
+

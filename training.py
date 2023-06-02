@@ -29,12 +29,12 @@ Total_Start = time.time()
 
 # Define all the necessary paths
 data_path = join(os.getcwd(), 'DATABASE')
-results_path = join(os.getcwd(), 'Results')
+results_path = join(os.getcwd(), 'Results') # Folder where all result images will be saved
 flair_path = join(data_path, 'OnlyBrain/flair/')
 t1w_path = join(data_path, 'OnlyBrain/t1w/')
 label_path = join(data_path, 'OnlyBrain/label/')
 brain_path = join(data_path, 'brain/')
-weights_path = join(os.getcwd(), 'weights/')
+weights_path = join(os.getcwd(), 'weights/') # Folder where final weights of the network will be saved
 
 # Define the id of test patients
 test_patients = [4, 11, 15, 38, 48, 57]
@@ -71,7 +71,7 @@ callback = [keras.callbacks.LearningRateScheduler(scheduler, verbose=1), keras.c
 # Get the ID of the images 
 image_ids = next(os.walk(flair_path))[2]
 
-# Get the ID of labeled images
+# Get the ID of images containing lesions
 labeled_ids = open("DATABASE/labeled_slices.txt", "r")
 labeled_ids = labeled_ids.read()
 
@@ -81,7 +81,7 @@ TEST_IMAGES = np.ndarray((0, image_shape[0], image_shape[1], image_shape[2]), dt
 TRAIN_LABELS = np.zeros((0, image_shape[0], image_shape[1], 1), dtype = np.float32)
 Image_IDs = np.empty(0)
 
-# Iterate over the image IDs and save the images as Train or Test image
+# Iterate over the image IDs and label the images as Train or Test image
 print('Building X_train, Y_train and X_test... ')
 for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
     flair_image = readImage(join(flair_path, f'{id_}'))
