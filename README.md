@@ -69,5 +69,5 @@ Once the training and testing stages are complete, the ultimate segmented images
 ## Evaluate network performance
 
 To assess the accuracy of the network's segmentation maps, you can utilize the `evaluation.py` script. This script calculates various metrics such as Dice Similarity Coefficient, Precision, Recall, and F1 score for each test patient. Additionally, it generates a boxplot illustrating the evaluation metrics for every test patient.
-![BoxPlot_example](Report/image/BoxPlot_Example.png)
+![BoxPlot_example](Report/images/BoxPlot_Example.png "Boxplot example")
 
