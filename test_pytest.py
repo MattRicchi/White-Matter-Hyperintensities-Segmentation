@@ -424,7 +424,7 @@ def test_crop_image_oddDimensions():
     cropped_image = crop_image(test_image)
 
     # Check if the output image has the correct shape
-    assert cropped_image.shape == (256, 256), "Crop shape dosen't match (256, 256)."
+    assert cropped_image.shape == (256, 256), "Crop shape doesn't match (256, 256)."
 
 
 def test_gaussian_normalisation_shape():
