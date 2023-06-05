@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+'''
+This script is dedicated to the training and testing of the model
+
+Author: Mattia Ricchi
+Date: May 2023
+'''
 
 from setup import Setup_Script
 
