@@ -7,6 +7,38 @@ Date: May 2023
 '''
 
 def get_unet(inputs):
+    '''
+    This function defines the U-Net architecture used in the ensemble model for image segmentation.
+    U-Net is a popular deep learning architecture for image segmentation tasks, consisting of an encoder 
+    (contracting path) and a decoder (expansive path), with skip connections connecting the 
+    corresponding layers between the encoder and decoder.
+    
+    The function performs a series of convolutional and pooling operations to extract features
+    from the input image. Then, it applies transposed convolutions to upsample the features and
+    concatenate them with features from earlier layers in the contracting path. Finally, it applies
+    convolutional layers to refine the predictions and produces the segmentation output.
+
+    Parameters
+    ----------
+    inputs: tensor
+        Input tensor representing the image data.
+
+    Returns
+    -------
+    keras.Model 
+        U-Net model.
+
+    References
+    ----------
+     - U-Net: Convolutional Networks for Biomedical Image Segmentation
+          (https://arxiv.org/abs/1505.04597)
+     - Ronneberger, O., Fischer, P., & Brox, T. (2015).
+
+    Note
+    ----
+    This implementation assumes the use of TensorFlow as the backend.
+
+    '''
 
     import os
     import tensorflow.keras as keras
