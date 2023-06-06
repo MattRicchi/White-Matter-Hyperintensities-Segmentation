@@ -99,11 +99,11 @@ def imagePostProcessing(img, label):
     """
     import numpy as np
     import cv2
-    from General_Functions.image_preprocessing import float32_converter, crop_image
+    from General_Functions.image_preprocessing import crop_image
 
     # Convert images to float32
-    img = float32_converter(img)
-    label = float32_converter(label)
+    img = np.float32(img)
+    label = np.float32(label)
 
     # Crop to standard dimensions (256x256)
     img = crop_image(img)

@@ -94,7 +94,6 @@ def gaussian_normalisation(image, brain_mask):
            [ 0.        ,  0.        ,  0.        ],
            [ 1.22474487,  1.22474487,  1.22474487]])
     """
-    
     import numpy as np
     
     # Check inputs for correctness
@@ -113,42 +112,6 @@ def gaussian_normalisation(image, brain_mask):
     normalised_image = (image - image_mean) / image_std
     
     return normalised_image
-
-
-def float32_converter(image):
-    """
-    Converts the input image to a float32 numpy array.
-
-    Parameters
-    ----------
-    image: ndarray
-        Input image as a numpy array.
-
-    Returns
-    -------
-    ndarray
-        Float32 numpy array.
-
-    Notes
-    -----
-    The float32 numpy array is useful for numerical calculations as it provides greater precision than other data types.
-    If the input image is already a float32 numpy array, the function returns the same array without any conversion.
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> img = np.array([[1, 2], [3, 4]])
-    >>> float_img = float32_converter(img)
-    >>> float_img
-    array([[1., 2.],
-           [3., 4.]], dtype=float32)
-    """
-    import numpy as np
-
-    image_float32 = np.float32(image)
-
-    return image_float32
-
 
 
 def imagePreProcessing(image, brain_mask, label):
@@ -186,7 +149,7 @@ def imagePreProcessing(image, brain_mask, label):
     >>> preprocessed_image, preprocessed_label = imagePreProcessing(image, brain_mask, label)
     """
     import numpy as np
-    from General_Functions.image_preprocessing import float32_converter, crop_image, gaussian_normalisation
+    from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
     # Check for input correctness
     if not all(arr.ndim == 2 for arr in [image, brain_mask, label]):
@@ -195,9 +158,9 @@ def imagePreProcessing(image, brain_mask, label):
         raise ValueError("Input image, brain mask, and label must have the same shape.")
 
     # Convert images to float32
-    image = float32_converter(image)
-    brain_mask = float32_converter(brain_mask)
-    label = float32_converter(label)
+    image = np.float32(image)
+    brain_mask = np.float32(brain_mask)
+    label = np.float32(label)
 
     # Crop images to standard dimensions (256x256)
     image = crop_image(image)

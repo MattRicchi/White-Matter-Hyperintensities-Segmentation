@@ -478,27 +478,3 @@ def test_gaussian_normalisation_mean_std():
     # Check if the output image has zero mean and unit variance within the brain mask
     assert np.isclose(np.mean(normalised_image[brain_mask == 1.0]), 0.0, rtol=1e-3), "The normalised image mean is not close to 0."
     assert np.isclose(np.std(normalised_image[brain_mask == 1.0]), 1.0, rtol=1e-3), "the normalised image standard deviation is not close to 1."
-
-
-def test_float32_converter():
-    '''
-    This is to test that the float32_converter function correctly converts the input image array in a float32 array.
-
-    GIVEN: image as a numpy array
-    WHEN: the float32_converter function is applied to the input array
-    THEN: the function returns the same array but as float32
-    '''
-    from General_Functions.image_preprocessing import float32_converter
-    import numpy as np
-
-    # Create a test image of size 2x2
-    test_image = np.array([[1, 2], [3, 4]])
-
-    # Call the float32_converter function
-    float32_image = float32_converter(test_image)
-
-    # Check if the output image has the correct type
-    assert float32_image.dtype == np.float32, "Image format is not float32."
-
-    # Check if the output image has the correct shape and values
-    assert np.allclose(float32_image, np.float32([[1, 2], [3, 4]])), "Converted image is not equal to the original one."
