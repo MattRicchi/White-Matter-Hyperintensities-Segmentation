@@ -6,7 +6,6 @@ Author: Mattia Ricchi
 Date: May 2023
 '''
 import numpy as np
-from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def crop_image(image, standard_dimensions=256):
     """
