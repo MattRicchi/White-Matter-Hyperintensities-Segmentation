@@ -10,7 +10,6 @@ import tensorflow as tf
 import tensorflow.keras as keras
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
-from General_Functions.Training_Functions import dice_coef_for_training
 
 def dataAugmentation(flair, t1, label):
     """
