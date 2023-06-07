@@ -427,7 +427,7 @@ def test_crop_image_oddDimensions():
     assert cropped_image.shape == (256, 256), "Crop shape doesn't match (256, 256)."
 
 
-def test_gaussian_normalisation_shape():
+def test_gaussian_normalisation_values():
     '''
     This is to test that the gaussian_normalisation function returns an image with the same shape as the input.
 
@@ -438,20 +438,21 @@ def test_gaussian_normalisation_shape():
     from General_Functions.image_preprocessing import gaussian_normalisation
     import numpy as np
 
-    # Create a test image of size 10x10
-    test_image = np.random.rand(10, 10)
+    # Define test image and brain mask
+    image = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+    brain_mask = np.array([[0, 0, 0], [1, 1, 1], [1, 1, 1]])
 
-    # Create a binary brain mask with a hole in the middle
-    brain_mask = np.zeros((10, 10))
-    brain_mask[2:8, 2:8] = 1.0
-    brain_mask[4:6, 4:6] = 0.0
+    # Define expected normalized image
+    expected_result = np.array([[-3.22047024, -2.6349302, -2.04939015],
+                               [-1.46385011, -0.87831007, -0.29277002],
+                               [0.29277002, 0.87831007, 1.46385011]])
 
-    # Call gaussian_normalisation function
-    normalised_image = gaussian_normalisation(test_image, brain_mask)
+    # Call the function to get the actual result
+    actual_result = gaussian_normalisation(image, brain_mask)
 
-    # Check if the output image has the correct shape
-    assert normalised_image.shape == (10, 10), "Normalised image shape doesn't match the shape of the original image."
-
+    # Check if the actual result matches the expected result
+    assert np.allclose(actual_result, expected_result), f"Normalization incorrect. Expected:\n{expected_result}\nActual:\n{actual_result}"
+    
 
 def test_gaussian_normalisation_mean_std():
     '''
