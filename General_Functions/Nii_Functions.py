@@ -5,6 +5,9 @@ This script contains all the necessary functions to deal with MR images in .nii 
 Author: Mattia Ricchi
 Date: May 2023
 '''
+import os
+import numpy as np
+import nibabel as nib
 
 def readImage(imgPath):
     """
@@ -36,7 +39,6 @@ def readImage(imgPath):
            [[ 0.77,  0.88,  0.99],
             [ 1.11,  1.22,  1.33]]])
     """
-    import nibabel as nib
     
     try:
         # Load the image using nibabel and retrieve its data
@@ -89,9 +91,6 @@ def saveSlice(img, fname, path):
     >>> img = np.random.rand(10, 10, 10)
     >>> saveSlice(img, "image", "/path/to/output/dir")
     """
-    import os
-    import numpy as np
-    import nibabel as nib
 
     # Check inputs for correctness
     if not isinstance(img, np.ndarray):
@@ -158,7 +157,6 @@ def concatenateImages(flair_img, t1w_img):
             [4., 8.]]], dtype=float32)
 
     """
-    import numpy as np
 
     # Check inputs for correctness
     if not isinstance(flair_img, np.ndarray) or not isinstance(t1w_img, np.ndarray):

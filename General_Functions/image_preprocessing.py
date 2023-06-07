@@ -5,6 +5,8 @@ This script contains all the necessary functions for the preprocessing of the MR
 Author: Mattia Ricchi
 Date: May 2023
 '''
+import numpy as np
+from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def crop_image(image, standard_dimensions=256):
     """
@@ -37,7 +39,6 @@ def crop_image(image, standard_dimensions=256):
     >>> cropped_image.shape
     (256, 256)
     """
-    import numpy as np
 
     (image_rows, image_columns) = image.shape
 
@@ -94,7 +95,6 @@ def gaussian_normalisation(image, brain_mask):
            [ 0.        ,  0.        ,  0.        ],
            [ 1.22474487,  1.22474487,  1.22474487]])
     """
-    import numpy as np
     
     # Check inputs for correctness
     if not isinstance(image, np.ndarray) or not isinstance(brain_mask, np.ndarray):
@@ -148,8 +148,6 @@ def imagePreProcessing(image, brain_mask, label):
     >>> label = np.random.rand(512, 512)
     >>> preprocessed_image, preprocessed_label = imagePreProcessing(image, brain_mask, label)
     """
-    import numpy as np
-    from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
     # Check for input correctness
     if not all(arr.ndim == 2 for arr in [image, brain_mask, label]):

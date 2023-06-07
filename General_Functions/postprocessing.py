@@ -5,6 +5,11 @@ This script contains a useful function for the evaluation of the performance fo 
 Author: Mattia Ricchi
 Date: May 2023
 '''
+import numpy as np
+import cv2
+from General_Functions.image_preprocessing import crop_image
+from Training_Functions import dice_coef_for_training
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 def get_evaluation_metrics(true_image, predicted_image):
     """
@@ -43,9 +48,6 @@ def get_evaluation_metrics(true_image, predicted_image):
     0.6666666666666666 0.6666666666666666 0.6666666666666666 0.6666666666666666
     """
     assert true_image.shape == predicted_image.shape, "True image and predicted image must have the same shape."
-
-    from Training_Functions import dice_coef_for_training
-    from sklearn.metrics import precision_score, recall_score, f1_score
     
     dsc = dice_coef_for_training(true_image, predicted_image)
     precision = precision_score(true_image, predicted_image, average='micro', zero_division=True)
@@ -97,9 +99,6 @@ def imagePostProcessing(img, label):
     >>> print(processed_label.shape)
     (256, 256)
     """
-    import numpy as np
-    import cv2
-    from General_Functions.image_preprocessing import crop_image
 
     # Convert images to float32
     img = np.float32(img)

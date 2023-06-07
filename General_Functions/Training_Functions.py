@@ -5,6 +5,12 @@ This script contains useful functions for the training of the network.
 Author: Mattia Ricchi
 Date: May 2023
 '''
+import numpy as np
+import tensorflow as tf
+import tensorflow.keras as keras
+from keras import backend as K
+from keras.preprocessing.image import ImageDataGenerator
+from General_Functions.Training_Functions import dice_coef_for_training
 
 def dataAugmentation(flair, t1, label):
     """
@@ -41,9 +47,6 @@ def dataAugmentation(flair, t1, label):
     array([[0., 0.],
            [0., 0.]])
     """
-    import numpy as np
-    import tensorflow.keras as keras 
-    from keras.preprocessing.image import ImageDataGenerator
 
     im_gen = ImageDataGenerator()
 
@@ -96,8 +99,6 @@ def dice_coef_for_training(y_true, y_pred):
     >>> dice_coef_for_training(y_true, y_pred)
     0.8
     """
-    import tensorflow.keras as keras
-    from keras import backend as K
 
     smooth = 1
     y_true_f = K.flatten(y_true)
@@ -135,7 +136,6 @@ def dice_coef_loss(y_true, y_pred):
     >>> dice_coef_loss(y_true, y_pred)
     0.16666666666666669
     """
-    from General_Functions.Training_Functions import dice_coef_for_training
 
     return -dice_coef_for_training(y_true, y_pred)
 
@@ -218,7 +218,6 @@ def scheduler(epoch, learning_rate):
     # Set the learning rate scheduler to be used in the training
     learning_rate_scheduler = tf.keras.callbacks.LearningRateScheduler(scheduler)
     '''
-    import tensorflow as tf
 
     if epoch < 10:
         return learning_rate
