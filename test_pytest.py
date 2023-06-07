@@ -464,10 +464,14 @@ def test_gaussian_normalisation_mean_std():
     from General_Functions.image_preprocessing import gaussian_normalisation
     import numpy as np
 
-    # Create a test image of size 10x10
-    test_image = np.random.rand(10, 10)
+    # Create a test image of size 10x10 with a square of different gray levels in the middle
+    test_image = np.zeros((10, 10))
+    test_image[2:4, 2:6] = 1.0
+    test_image[4:8, 2:4] = 2.0
+    test_image[6:8, 4:8] = 3.0
+    test_image[2:6, 6:8] = 4.0
 
-    # Create a binary brain mask with a hole in the middle
+    # Create the binary mask with a hole in the middle
     brain_mask = np.zeros((10, 10))
     brain_mask[2:8, 2:8] = 1.0
     brain_mask[4:6, 4:6] = 0.0
