@@ -408,6 +408,7 @@ def test_crop_image_smallerCrop():
     # Check if the output image has the correct shape
     assert cropped_image.shape == (128, 128), "Crop shape doesn't match the requested one."
 
+
 def test_crop_image_oddDimensions():
     '''
     This is to test that the crop_image function also works correctly with an input image with odd dimensions.
@@ -425,6 +426,40 @@ def test_crop_image_oddDimensions():
 
     # Check if the output image has the correct shape
     assert cropped_image.shape == (256, 256), "Crop shape doesn't match (256, 256)."
+
+
+def test_crop_image_values():
+    '''
+    This is to test that the crop_image function returns an image with the correct values.
+
+    GIVEN: input image
+    WHEN: crop_image function is applied to the input image
+    THEN: the cropped image has the corrected values
+    '''
+    import numpy as np
+    from General_Functions.image_preprocessing import crop_image
+    # Create a test image with known values
+    image = np.array([[1, 2, 3, 4, 5, 6],
+                      [7, 8, 9, 10, 11, 12],
+                      [13, 14, 15, 16, 17, 18],
+                      [19, 20, 21, 22, 23, 24],
+                      [25, 26, 27, 28, 29, 30],
+                      [31, 32, 33, 34, 35, 36]])
+
+    # Define the expected cropped image dimensions
+    expected_dimensions = 4
+
+    # Call the function to get the actual cropped image
+    actual_cropped_image = crop_image(image, expected_dimensions)
+
+    # Define the manually cropped region from the original image
+    manual_cropped_region = np.array([[8, 9, 10, 11],
+                                      [14, 15, 16, 17],
+                                      [20, 21, 22, 23],
+                                      [26, 27, 28, 29]])
+
+    # Check if the content of the cropped image matches the manually cropped region
+    assert np.array_equal(actual_cropped_image, manual_cropped_region), "Content of cropped image does not match the manually cropped region."
 
 
 def test_gaussian_normalisation_values():
