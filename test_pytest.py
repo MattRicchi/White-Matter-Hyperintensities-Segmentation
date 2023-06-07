@@ -464,11 +464,11 @@ def test_crop_image_values():
 
 def test_gaussian_normalisation_values():
     '''
-    This is to test that the gaussian_normalisation function returns an image with the same shape as the input.
+    This is to test that the gaussian_normalisation function returns an image with the expected values.
 
     GIVEN: a 2D image to be normalised and its brain_mask image
     WHEN: the gaussian_normalisation is applied to the inputs
-    THEN: the function returns an image with the same shape as the input one
+    THEN: the function returns an image with normalised gray level intensity
     '''
     from General_Functions.image_preprocessing import gaussian_normalisation
     import numpy as np
