@@ -293,10 +293,24 @@ def test_dataAugmentation_shape():
     from General_Functions.Training_Functions import dataAugmentation
     import numpy as np
 
-    # Define some input arrays
-    flair = np.random.rand(256, 256)
-    t1 = np.random.rand(256, 256)
-    label = np.random.randint(0, 2, size=(256, 256))
+    # Create a flair image of size 10x10 with a square of different gray levels in the middle
+    flair = np.zeros((10, 10))
+    flair[2:4, 2:6] = 1.0
+    flair[4:8, 2:4] = 2.0
+    flair[6:8, 4:8] = 3.0
+    flair[2:6, 6:8] = 4.0
+    
+    # Create a t1 image of size 10x10 with a square of different gray levels in the middle
+    t1 = np.zeros((10, 10))
+    t1[2:4, 2:6] = 1.0
+    t1[4:8, 2:4] = 2.0
+    t1[6:8, 4:8] = 3.0
+    t1[2:6, 6:8] = 4.0
+    
+    # Create the label mask with a hole in the middle
+    label = np.zeros((10, 10))
+    label[2:8, 2:8] = 1.0
+    label[4:6, 4:6] = 0.0
 
     # Call the dataAugmentation function
     flairAug, t1Aug, labelAug = dataAugmentation(flair, t1, label)
@@ -317,7 +331,6 @@ def test_dataAugmentation_AugmentedDifferentFromInputs():
     '''
     from General_Functions.Training_Functions import dataAugmentation
     import numpy as np
-    import cv2
     
     # Create a flair image of size 10x10 with a square of different gray levels in the middle
     flair = np.zeros((10, 10))
