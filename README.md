@@ -6,6 +6,21 @@ Within this repository, you will find functions designed to train and test an en
 
 This repository contains an algorithm that can automatically detect and segment white matter hyperintensities by using fluid-attenuated inversion recovery (FLAIR) and T1 magnetic resonance scans. The technique used is based on a deep fully convolutional neural network and ensemble model, which is a machine learning approach for diagnosing diseases through medical imaging.
 
+### How to train the network
+
+To begin the network training, you simply have to execute the `training.py` script. Please, make sure that the `DATABASE` folder has the required data and is situated in the same directory as the script. Moreover, the `DATABASE` folder should have two subfolders: 
+* `OnlyBrain`, which contains brain-extracted images sorted into the following categories: 
+  * `flair` with brain-extracted flair images
+  * `t1w` with brain-extracted T1 weighted images
+  * `label` with ground truth images
+* `brain` which includes brain mask images
+
+If you need to perform brain extraction on your data, you may utilize the [fslpy wrapper BET](https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/master/fsl/wrappers/bet.py) provided by fsl. [Here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/BET/UserGuide) you can find the BET userguide.
+
+The `training.py` script automatically splits the images into training and testing categories. Images of patients 4, 11, 15, 38, 48, and 59 will be reserved for testing purposes to evaluate the network's performance.
+
+Once the training and testing stages are complete, the ultimate segmented images are stored in the NIfTI format under the same ID as the initial flair image.
+
 ## Repository structure and content
 
 The main directory includes:
@@ -56,20 +71,7 @@ pytest
 ```
 The scripts were written in `Python 3.11.0` on `Windows 11`, and the functions were tested in the same environment.
 
-## How to train the network
 
-To begin the network training, you simply have to execute the `training.py` script. Please, make sure that the `DATABASE` folder has the required data and is situated in the same directory as the script. Moreover, the `DATABASE` folder should have two subfolders: 
-* `OnlyBrain`, which contains brain-extracted images sorted into the following categories: 
-  * `flair` with brain-extracted flair images
-  * `t1w` with brain-extracted T1 weighted images
-  * `label` with ground truth images
-* `brain` which includes brain mask images
-
-If you need to perform brain extraction on your data, you may utilize the [fslpy wrapper BET](https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/master/fsl/wrappers/bet.py) provided by fsl. [Here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/BET/UserGuide) you can find the BET userguide.
-
-The `training.py` script automatically splits the images into training and testing categories. Images of patients 4, 11, 15, 38, 48, and 59 will be reserved for testing purposes to evaluate the network's performance.
-
-Once the training and testing stages are complete, the ultimate segmented images are stored in the NIfTI format under the same ID as the initial flair image.
 
 ## Evaluate network performance
 
