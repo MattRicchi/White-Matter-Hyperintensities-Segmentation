@@ -38,7 +38,17 @@ brain_path = join(data_path, 'brain/')
 weights_path = join(os.getcwd(), 'weights/') # Folder where final weights of the network will be saved
 
 # Define the id of test patients
-test_patients = [4, 11, 15, 38, 48, 57]
+test_patients = []
+
+with open("test_patients.txt", "r") as file:
+    # Read the content of test_patients.txt
+    content = file.read()
+    
+    # Split the content by spaces
+    test_patients_str = content.split()
+    
+    # Convert each element to an integer and append it to the list
+    test_patients = [int(num) for num in test_patients_str]
 
 # Define the shape of the input images
 image_shape = (256, 256, 2)
