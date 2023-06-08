@@ -50,6 +50,7 @@ def dataAugmentation(flair, t1, label):
     im_gen = ImageDataGenerator()
 
     # Randomly generate the transformation parameters
+    np.random.seed(4)
     theta = np.random.uniform(-15, 15)
     shear = np.random.uniform(-.1, .1)
     zx, zy = np.random.uniform(.9, 1.1, 2)
