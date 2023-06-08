@@ -25,7 +25,15 @@ ground_truth_path = join(os.getcwd(), 'DATABASE/label/')
 result_path = join(os.getcwd(), 'Results')
 
 # Set volume numbers used to test the network
-labels = ['4', '11', '15', '38', '48', '57']
+labels = []
+
+# Open the file in read mode
+with open("test_patients.txt", "r") as file:
+    # Read the content of the file
+    content = file.read()
+    
+    # Split the content by spaces
+    labels = content.split()
 
 image_ids = next(os.walk(result_path))[2]
 patient_number = np.empty(0)
