@@ -90,7 +90,7 @@ def test_saveSlice_sliceSavedCorrectly():
 
     img_path = os.path.join(os.getcwd(), 'test_folder')
     fname = 'test_image'
-    dummy_img = np.random.rand(10, 10)
+    dummy_img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
         
     saveSlice(dummy_img, fname, img_path)
         
@@ -113,7 +113,7 @@ def test_saveSlice_invalidInputs():
     import pytest
 
     # Generate test data
-    img = np.random.rand(10, 10)
+    img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
     fname = "test_image"
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -143,7 +143,7 @@ def test_saveSlice_nonValid_Dir():
     import pytest
 
     # Generate test data
-    img = np.random.rand(10, 10)
+    img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
     fname = "test_image"
 
     # Test saving to a directory that cannot be created
