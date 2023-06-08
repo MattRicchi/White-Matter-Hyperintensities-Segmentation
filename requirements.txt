@@ -1,0 +1,9 @@
+numpy==1.23.5
+nibabel==5.1.0
+tensorflow==2.12.0
+focal_loss==0.0.7
+cv2==4.7.0
+sklearn==1.2.2
+pandas==2.0.1
+matplotlib==3.7.1
+tqdm==4.65.0
