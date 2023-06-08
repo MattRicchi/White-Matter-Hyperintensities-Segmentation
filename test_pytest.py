@@ -5,6 +5,18 @@ This script contains all the test functions used to test the code
 Author: Mattia Ricchi
 Date: May 2023
 '''
+import numpy as np
+import tensorflow as tf
+import tempfile
+from tempfile import TemporaryDirectory
+from pathlib import Path
+import nibabel as nib
+import pytest
+import os
+
+from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
+from General_Functions.Training_Functions import dataAugmentation, scheduler
+from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def test_readImage_read():
     '''
@@ -14,11 +26,6 @@ def test_readImage_read():
     WHEN: the readImage function is called with the path to the medical image file.
     THEN: the function returns the contents of the image file as a NumPy array.
     '''
-    from General_Functions.Nii_Functions import readImage
-    import numpy as np
-    from tempfile import TemporaryDirectory
-    from pathlib import Path
-    import nibabel as nib
 
     # Create a temporary directory and a dummy image file
     with TemporaryDirectory() as tmpdir:
@@ -39,8 +46,6 @@ def test_readImage_FileNotFoundError():
     WHEN: the readImage function is called with the path to the non-existent file
     THEN: the function raises a FileNotFoundError
     '''
-    from General_Functions.Nii_Functions import readImage
-    import pytest
 
     # Test that a FileNotFoundError is raised if the image path does not exist
     with pytest.raises(FileNotFoundError):
@@ -55,12 +60,6 @@ def test_readImage_ImageFileError():
     WHEN: the readImage function is called with the path to the invalid file
     THEN: the function raises a nibabel.filebasedimages.ImageFileError
     '''
-    from General_Functions.Nii_Functions import readImage
-    import pytest
-    import numpy as np
-    from tempfile import TemporaryDirectory
-    from pathlib import Path
-    import nibabel as nib
 
     # Create a temporary directory and a dummy image file
     with TemporaryDirectory() as tmpdir:
@@ -83,10 +82,6 @@ def test_saveSlice_sliceSavedCorrectly():
     WHEN: the saveSlice function is called with the correct inputs 
     THEN: the function saves the image as NIfTI file
     '''
-    from General_Functions.Nii_Functions import saveSlice, readImage
-    import numpy as np
-    import os
-    from pathlib import Path
 
     img_path = os.path.join(os.getcwd(), 'test_folder')
     fname = 'test_image'
@@ -107,10 +102,6 @@ def test_saveSlice_invalidInputs():
     WHEN: the saveSlice function is called with the wrong inputs 
     THEN: the function raises the correct error, TypeError or ValueError
     '''
-    from General_Functions.Nii_Functions import saveSlice
-    import tempfile
-    import numpy as np
-    import pytest
 
     # Generate test data
     img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
@@ -138,9 +129,6 @@ def test_saveSlice_nonValid_Dir():
     WHEN: the saveSlice function is called with the wrong path 
     THEN: the function raises the correct OSError
     '''
-    from General_Functions.Nii_Functions import saveSlice
-    import numpy as np
-    import pytest
 
     # Generate test data
     img = np.array([[[0.11, 0.22, 0.33], [0.44, 0.55, 0.66]], [[0.77, 0.88, 0.99], [1.11, 1.22, 1.33]]])
@@ -159,9 +147,7 @@ def test_concatenateImages_correctConcatenation():
     WHEN: the concatenateImages is applied to the flair and the t1w images
     THEN: the function returns a 3D image given by the concatenation of the flair and t1w images along the third axis
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
-
+    
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
     t1w_img = np.array([[5, 6], [7, 8]])
@@ -179,8 +165,6 @@ def test_concatenateImages_shape():
     WHEN: the concatenateImages is applied to the flair and the t1w images
     THEN: the function returns a 3D image of dimensions (x, y, 2)
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
 
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
@@ -198,8 +182,6 @@ def test_concatenateImages_matchWithOriginalImages():
     WHEN: the concatenateImages is applied to the flair and the t1w images
     THEN: the function returns a 3D image with on the first axis the flair image and on the second axis the t1w image
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
 
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
@@ -221,9 +203,6 @@ def test_concatenateImages_inputNotNumpy():
     WHEN: the concatenateImages function is applied to the flair and t1w images
     THEN: the function returns a TypeError 
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
-    import pytest
 
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
@@ -245,9 +224,6 @@ def test_concatenateImages_inputsNotSameShape():
     WHEN: the concatenateImages is applied to them
     THEN: the function returns a ValueError
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
-    import pytest
 
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
@@ -266,9 +242,6 @@ def test_concatenateImages_inputsNot2D():
     WHEN: the concatenateImages function is applied to the flair and t1w images
     THEN: the function returns a ValueError
     '''
-    from General_Functions.Nii_Functions import concatenateImages
-    import numpy as np
-    import pytest
 
     # Create two test images
     flair_img = np.array([[1, 2], [3, 4]])
@@ -290,9 +263,7 @@ def test_dataAugmentation_shape():
     WHEN: the dataAugmentation function is applied to the images
     THEN: the function returns new flair, t1w and label images with the same shape as the originals
     '''
-    from General_Functions.Training_Functions import dataAugmentation
-    import numpy as np
-
+    
     # Create a flair image of size 10x10 with a square of different gray levels in the middle
     flair = np.zeros((10, 10))
     flair[2:4, 2:6] = 1.0
@@ -329,8 +300,6 @@ def test_dataAugmentation_AugmentedDifferentFromInputs():
     WHEN: the dataAugmentation function is applied to the images
     THEN: the function returns new flair, t1w and label images
     '''
-    from General_Functions.Training_Functions import dataAugmentation
-    import numpy as np
     
     # Create a flair image of size 10x10 with a square of different gray levels in the middle
     flair = np.zeros((10, 10))
@@ -368,8 +337,6 @@ def test_scheduler_first10epochs():
     WHEN: the scheduler function is called 
     THEN: the learning rate remains unchanged 
     '''
-    from General_Functions.Training_Functions import scheduler
-    import tensorflow as tf
     
     # Test learning rate stays the same before epoch 10
     for epoch in range(10):
@@ -384,8 +351,6 @@ def test_scheduler_learningRateDecreases():
     WHEN: the scheduler function is called 
     THEN: the learning rate decreases exponentially
     '''
-    from General_Functions.Training_Functions import scheduler
-    import tensorflow as tf
 
     # Test learning rate decreases after epoch 10 with the exponential decay formula
     learning_rate = 0.1
@@ -403,8 +368,6 @@ def test_crop_image_cropShape():
     WHEN: the crop_image function is applied to the image
     THEN: the function returns the input image cropped to have shape (256, 256)
     '''
-    from General_Functions.image_preprocessing import crop_image
-    import numpy as np
 
     # Create a test image of size 512x512
     test_image = np.zeros((512, 512))
@@ -424,8 +387,6 @@ def test_crop_image_smallerCrop():
     WHEN: the crop_image function is applied to the image
     THEN: the function returns the input image cropped to have the wanted shape
     '''
-    from General_Functions.image_preprocessing import crop_image
-    import numpy as np
 
     # Create a test image of size 512x512
     test_image = np.zeros((512, 512))
@@ -445,8 +406,6 @@ def test_crop_image_oddDimensions():
     WHEN: crop_image function is applied to the input image
     THEN: the function correctly crops the image to have shape equal to (256, 256)
     '''
-    from General_Functions.image_preprocessing import crop_image
-    import numpy as np
 
     # Call crop_image function with an image that has odd dimensions
     test_image = np.zeros((513, 513))
@@ -464,8 +423,7 @@ def test_crop_image_values():
     WHEN: crop_image function is applied to the input image
     THEN: the cropped image has the corrected values
     '''
-    import numpy as np
-    from General_Functions.image_preprocessing import crop_image
+    
     # Create a test image with known values
     image = np.array([[1, 2, 3, 4, 5, 6],
                       [7, 8, 9, 10, 11, 12],
@@ -498,8 +456,6 @@ def test_gaussian_normalisation_values():
     WHEN: the gaussian_normalisation is applied to the inputs
     THEN: the function returns an image with normalised gray level intensity
     '''
-    from General_Functions.image_preprocessing import gaussian_normalisation
-    import numpy as np
 
     # Define test image and brain mask
     image = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
@@ -525,8 +481,6 @@ def test_gaussian_normalisation_mean_std():
     WHEN: the gaussian_normalisation is applied to the inputs
     THEN: the function returns an image with mean = 0 and standard deviation = 1
     '''
-    from General_Functions.image_preprocessing import gaussian_normalisation
-    import numpy as np
 
     # Create a test image of size 10x10 with a square of different gray levels in the middle
     test_image = np.zeros((10, 10))
