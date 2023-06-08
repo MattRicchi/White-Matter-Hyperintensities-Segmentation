@@ -6,11 +6,6 @@ Author: Mattia Ricchi
 Date: June 2023
 '''
 
-from setup import Setup_Script
-
-# Check everything is correctly setted before running the script
-Setup_Script()
-
 # Import necessary functions and modules
 import os
 from os.path import join

@@ -6,11 +6,6 @@ Author: Mattia Ricchi
 Date: May 2023
 '''
 
-from setup import Setup_Script
-
-# Check everything is correctly set before running the script
-Setup_Script()
-
 # Import necessary packages and modules
 import os
 import time
