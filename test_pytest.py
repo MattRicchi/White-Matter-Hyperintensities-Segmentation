@@ -331,36 +331,6 @@ def test_learning_rate_scheduler():
         learning_rate = scheduler(epoch, learning_rate)
         assert learning_rate == expected_lr, f"Learning rate mismatch at epoch {epoch}. Expected: {expected_lr}, Got: {learning_rate}"
 
-def test_scheduler_first10epochs():
-    '''
-    This is to test that the scheduler function leaves the learning rate unchanged for the first ten epochs.
-    
-    GIVEN: the epoch number smaller than 10 and the initial learning rate
-    WHEN: the scheduler function is called 
-    THEN: the learning rate remains unchanged 
-    '''
-    
-    # Test learning rate stays the same before epoch 10
-    for epoch in range(10):
-        assert scheduler(epoch, 0.1) == 0.1, "Learning rate is not constant for the first 10 epochs."
-
-
-def test_scheduler_learningRateDecreases():
-    '''
-    This is to test that the scheduler function causes the learning rate to decrease exponentially after the first ten epochs.
-    
-    GIVEN: the epoch number grater than 10 and the initial learning rate
-    WHEN: the scheduler function is called 
-    THEN: the learning rate decreases exponentially
-    '''
-
-    # Test learning rate decreases after epoch 10 with the exponential decay formula
-    learning_rate = 0.1
-    for epoch in range(10, 20):
-        learning_rate = scheduler(epoch, learning_rate)
-
-        assert abs(learning_rate - (0.1 * tf.math.exp(-0.1 * (epoch - 9)))) < 1e-7, "Learning rate doesn't decrease exponentially."
-
 
 def test_crop_image_cropShape():
     '''
