@@ -312,6 +312,18 @@ def test_dataAugmentation_AugmentedDifferentFromInputs():
     assert not np.array_equal(labelAug, label), "Output label image is identical to input."
 
 
+def test_learning_rate_scheduler():
+    learning_rate = 0.1
+    expected_learning_rates = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.09048374742269516,
+                               0.0818730816245079, 0.07408183068037033, 0.06703201681375504,
+                               0.06065307930111885, 0.054881177842617035, 0.04965854436159134,
+                               0.044932909309864044, 0.04065697640180588, 0.03678795322775841,
+                               0.03328711539506912]
+
+    for epoch, expected_lr in enumerate(expected_learning_rates, start=1):
+        learning_rate = scheduler(epoch, learning_rate)
+        assert learning_rate == expected_lr, f"Learning rate mismatch at epoch {epoch}. Expected: {expected_lr}, Got: {learning_rate}"
+
 def test_scheduler_first10epochs():
     '''
     This is to test that the scheduler function leaves the learning rate unchanged for the first ten epochs.
