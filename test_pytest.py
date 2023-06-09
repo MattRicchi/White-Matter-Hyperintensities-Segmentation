@@ -313,6 +313,13 @@ def test_dataAugmentation_AugmentedDifferentFromInputs():
 
 
 def test_learning_rate_scheduler():
+    '''
+    This is to test that the scheduler function leaves the learning rate unchanged for the first ten epochs and then it decreases exponentially.
+    
+    GIVEN: the initial learning rate
+    WHEN: the scheduler function is called 
+    THEN: the learning rate remains unchanged for the first ten epochs and then it decreases exponentially
+    '''
     learning_rate = 0.1
     expected_learning_rates = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.09048374742269516,
                                0.0818730816245079, 0.07408183068037033, 0.06703201681375504,
