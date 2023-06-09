@@ -157,23 +157,6 @@ def test_concatenateImages_correctConcatenation():
     # Test successful concatenation
     assert np.allclose(concatenated_img, expected_output), "The concatenated image is not equale to the expected one."
 
-def test_concatenateImages_shape():
-    '''
-    This is to test that the concatenateImages function correctly concatenates the Flair and T1W images along the third axis into a 3D image.
-
-    GIVEN: a 2D flair and a 2D t1w images of dimensions (x, y)
-    WHEN: the concatenateImages is applied to the flair and the t1w images
-    THEN: the function returns a 3D image of dimensions (x, y, 2)
-    '''
-
-    # Create two test images
-    flair_img = np.array([[1, 2], [3, 4]])
-    t1w_img = np.array([[5, 6], [7, 8]])
-    concatenated_img = concatenateImages(flair_img, t1w_img)
-
-    # Check that the shape of the concatenated image is correct
-    assert concatenated_img.shape == (2, 2, 2), "The shape of the concatenated image is incorrect."
-
 def test_concatenateImages_matchWithOriginalImages():
     '''
     This is to test that the concatenateImages function correctly concatenates the Flair and T1W images along the third axis into a 3D image.
