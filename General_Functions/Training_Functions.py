@@ -223,3 +223,45 @@ def scheduler(epoch, learning_rate):
         return learning_rate
     else:
         return learning_rate * tf.math.exp(-0.1)
+
+
+def get_test_patients(test_patients_file):
+    """
+    Read test patient IDs from a file and return them as a NumPy array.
+
+    Parameters
+    ----------
+    test_patients_file: str
+        The name of the file containing test patient IDs.
+
+    Returns
+    -------
+    numpy.ndarray
+        An array of test patient IDs.
+
+    Raises
+    ------
+    IOError
+        If the file specified by `test_patients_file` cannot be opened or read.
+    
+    Notes
+    -----
+        The `test_patients_file` must be in the same folder as the script you are executing.
+        If the file is in a different folder, please provide as input the whole path to the file.
+
+    Example
+    -------
+    >>> test_patients = get_test_patients("test_patients.txt")
+    >>> print(test_patients)
+    [1, 2, 3, 4, 5]
+    """
+    
+    with open(test_patients_file, "r") as file:
+        # Read the content of txt file
+        content = file.read()
+        # Split the content of txt file by spaces
+        test_patients_str = content.split()
+        # Convert each element to an integer and append it to the list
+        test_patients = [int(num) for num in test_patients_str]
+    return test_patients
+    
