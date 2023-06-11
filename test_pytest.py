@@ -15,7 +15,7 @@ import pytest
 import os
 
 from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
-from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain, add_to_test_data
+from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain, add_to_test_data, add_to_train_data
 from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def test_readImage_read():
@@ -560,3 +560,18 @@ def test_add_to_test_data():
     assert np.array_equal(Image_IDs[0], id_1)
     assert np.array_equal(TEST_IMAGES[1], FLAIR_and_T1W_image_2)
     assert np.array_equal(Image_IDs, np.array([id_1, id_2]))
+    
+    
+def test_add_to_train_data():
+    # Create dummy data
+    TRAIN_IMAGES = np.ndarray((0, 256, 256, 2))
+    TRAIN_LABELS = np.ndarray((0, 256, 256, 1))
+    FLAIR_and_T1W_image = np.ones((256, 256, 2))
+    label_image = np.ones((256, 256))
+    
+    # Call the function
+    TRAIN_IMAGES, TRAIN_LABELS = add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_image)
+    
+    # Assert the added data
+    assert np.array_equal(TRAIN_IMAGES[0], FLAIR_and_T1W_image)
+    assert np.array_equal(TRAIN_LABELS[0], label_image)
