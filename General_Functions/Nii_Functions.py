@@ -185,3 +185,42 @@ def concatenateImages(flair_img, t1w_img):
     FLAIR_and_T1W_image = np.concatenate((flair_img, t1w_img), axis=2)
 
     return FLAIR_and_T1W_image
+
+
+def load_images(flair_path, t1w_path, label_path, brain_path, id_):
+    """
+    Load the FLAIR, T1W, label, and brain mask images for the given image ID.
+
+    Parameters
+    ----------
+    flair_path: str
+        The path to the directory containing the FLAIR images.
+    t1w_path: str
+        The path to the directory containing the T1W images.
+    label_path: str
+        The path to the directory containing the label images.
+    brain_path: str
+        The path to the directory containing the brain mask images.
+    id_ : str
+        The image ID for which the images need to be loaded.
+
+    Returns
+    -------
+    tuple
+        A tuple that contains the loaded FLAIR, T1W, label, and brain mask images.
+
+    Raises
+    ------
+    FileNotFoundError
+        If any of the image files are not found.
+    """
+    
+    try:
+        flair_image = readImage(os.path.join(flair_path, id_))
+        t1w_image = readImage(os.path.join(t1w_path, id_))
+        label_image = readImage(os.path.join(label_path, id_))
+        brain_mask = readImage(os.path.join(brain_path, id_))
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Image file not found for ID: {id_}") from e
+    
+    return flair_image, t1w_image, label_image, brain_mask
