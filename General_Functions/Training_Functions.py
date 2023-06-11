@@ -265,3 +265,19 @@ def get_test_patients(test_patients_file):
         test_patients = [int(num) for num in test_patients_str]
     return test_patients
     
+    
+def has_brain(brain_mask):
+    """
+    Check if a brain mask image has any non-zero values, indicating the presence of brain.
+
+    Parameters
+    ----------
+    brain_mask : numpy.ndarray
+        A 2D or 3D array representing the brain mask.
+
+    Returns
+    -------
+    bool
+        True if the brain mask has non-zero values, indicating the presence of brain. False otherwise.
+    """
+    return np.max(brain_mask) > 0.0
