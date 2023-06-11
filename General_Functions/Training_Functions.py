@@ -322,7 +322,8 @@ def add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_ima
         Array containing the training labels.
     FLAIR_and_T1W_image: ndarray
         FLAIR and T1W image to be added to the training data.
-    label_image: ndarray
+    label_image: 2darray
+        Label map to be added to the labels data.
 
     Returns
     -------
