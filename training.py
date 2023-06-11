@@ -22,7 +22,7 @@ from focal_loss import BinaryFocalLoss, binary_focal_loss
 
 # Import necessary functions and modules
 from unet import get_unet
-from General_Functions.Training_Functions import dice_coef_loss, scheduler, dataAugmentation
+from General_Functions.Training_Functions import dice_coef_loss, scheduler, dataAugmentation, get_test_patients
 from General_Functions.image_preprocessing import imagePreProcessing
 from General_Functions.Nii_Functions import readImage, concatenateImages, saveSlice
 
@@ -38,17 +38,8 @@ brain_path = join(data_path, 'brain/')
 weights_path = join(os.getcwd(), 'weights/') # Folder where final weights of the network will be saved
 
 # Define the id of test patients
-test_patients = []
-
-with open("test_patients.txt", "r") as file:
-    # Read the content of test_patients.txt
-    content = file.read()
-    
-    # Split the content by spaces
-    test_patients_str = content.split()
-    
-    # Convert each element to an integer and append it to the list
-    test_patients = [int(num) for num in test_patients_str]
+test_patients_file = 'test_patients.txt'
+test_patients = get_test_patients(test_patients_file)
 
 # Define the shape of the input images
 image_shape = (256, 256, 2)
