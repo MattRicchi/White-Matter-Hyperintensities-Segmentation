@@ -6,10 +6,13 @@ Author: Mattia Ricchi
 Date: May 2023
 '''
 import numpy as np
+from os.path import join
 import tensorflow as tf
 import tensorflow.keras as keras
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
+from General_Functions.Nii_Functions import concatenateImages, load_images
+from General_Functions.image_preprocessing import imagePreProcessing
 
 def dataAugmentation(flair, t1, label):
     """
@@ -337,3 +340,83 @@ def add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_ima
     TRAIN_LABELS = np.append(TRAIN_LABELS, label_image[np.newaxis, ..., np.newaxis], axis = 0)
             
     return TRAIN_IMAGES, TRAIN_LABELS
+
+
+def build_train_test_data(data_path, test_patients, labeled_ids, id_, TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs):
+    """
+    This function classifies the input images as part of the training or testing datasets based on the image ID. 
+
+    Parameters
+    ----------
+    data_path: str
+        Path to the dataset folder
+    test_patients: np.array
+        Array containing the id of patients that will be used for testing
+    labeled_ids: np.array
+        Array containing the id of slices with labeled lesions
+    id_: str 
+        The ID of the image that needs to be classified
+    TEST_IMAGES: np.ndarray
+        Array containing test images to which the new image will be appended
+    TRAIN_IMAGES: np.ndarray
+        Array containing training images to which the new image will be appended
+    TRAIN_LABELS: np.ndarray
+        Array containing the labels of training images to which the new label will be appended
+    Image_IDs: np.array
+        Array containing the IDs of all the images that will be used for testing
+
+    Returns
+    -------
+    TEST_IMAGES: np.ndarray
+        Updated array containing test images
+    TRAIN_IMAGES: np.ndarray
+        Updated array containing training images
+    TRAIN_LABELS: np.ndarray
+        Updated array containing the labels of training images
+    Image_IDs: np.array
+        Updated array containing the IDs of all the images that will be used for testing
+    """
+    
+    # Define necessary paths
+    flair_path = join(data_path, 'OnlyBrain/flair/')
+    t1w_path = join(data_path, 'OnlyBrain/t1w/')
+    label_path = join(data_path, 'OnlyBrain/label/')
+    brain_path = join(data_path, 'brain/')
+    
+    # Load the images and labels
+    flair_image, t1w_image, label_image, brain_mask = load_images(flair_path, t1w_path, label_path, brain_path, id_)
+
+    # Skip the images in which there is no brain
+    if not has_brain(brain_mask):
+        return
+
+    # Preprocess the images and labels
+    (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
+    (t1w_image, label_image) = imagePreProcessing(t1w_image, brain_mask, label_image)
+    
+    # Concatenate FLAIR and T1W images
+    FLAIR_and_T1W_image = concatenateImages(flair_image, t1w_image)
+
+    # Sort images based on the patient number
+    patient_number = int(id_[7:10])
+    
+    if patient_number in test_patients:
+        # Image will be used for testing
+        TEST_IMAGES, Image_IDs = add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image, id_)
+        
+    else:    
+        # Image is classified as a training image
+        TRAIN_IMAGES, TRAIN_LABELS = add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_image)
+    
+        # Apply data augmentation 10 times if there are labeled lesions in the slice
+        if id_[:14] in labeled_ids:
+            labelImg = label_image[0, :, :, 0]
+            for _ in range(9):
+                flairAug, t1Aug, labelAug = dataAugmentation(flair_image, t1w_image, labelImg)
+                FLAIR_and_T1W_image = concatenateImages(flairAug, t1Aug)
+                FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
+                labelAug = labelAug[np.newaxis, ..., np.newaxis]
+                TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
+                TRAIN_LABELS = np.append(TRAIN_LABELS, labelAug, axis = 0)
+                
+    return TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs
