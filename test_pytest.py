@@ -15,7 +15,7 @@ import pytest
 import os
 
 from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
-from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain
+from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain, add_to_test_data
 from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def test_readImage_read():
@@ -531,3 +531,25 @@ def test_has_brain_without_brain():
         
     # Assert that the result is True
     assert result == False
+    
+
+def test_add_to_test_data():
+    # Initialize test data arrays
+    TEST_IMAGES = np.ndarray((0, 256, 256, 2))
+    Image_IDs = np.empty(0)
+    
+    # Generate sample FLAIR_and_T1W_image and id_
+    FLAIR_and_T1W_image_1 = np.ones((256, 256, 2))
+    id_1 = 'image001'
+    FLAIR_and_T1W_image_2 = np.ones((256, 256, 2)) * 2
+    id_2 = 'image002'
+    
+    # Add the images to test data
+    TEST_IMAGES, Image_IDs = add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image_1, id_1)
+    TEST_IMAGES, Image_IDs = add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image_2, id_2)
+    
+    # Verify the updated arrays after adding the sample images
+    assert np.array_equal(TEST_IMAGES[0], FLAIR_and_T1W_image_1)
+    assert np.array_equal(Image_IDs[0], id_1)
+    assert np.array_equal(TEST_IMAGES[1], FLAIR_and_T1W_image_2)
+    assert np.array_equal(Image_IDs, np.array([id_1, id_2]))
