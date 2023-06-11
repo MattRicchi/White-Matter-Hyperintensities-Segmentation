@@ -22,9 +22,8 @@ from focal_loss import BinaryFocalLoss, binary_focal_loss
 
 # Import necessary functions and modules
 from unet import get_unet
-from General_Functions.Training_Functions import dice_coef_loss, scheduler, dataAugmentation, get_test_patients
-from General_Functions.image_preprocessing import imagePreProcessing
-from General_Functions.Nii_Functions import readImage, concatenateImages, saveSlice
+from General_Functions.Training_Functions import dice_coef_loss, scheduler,  get_test_patients, build_train_test_data
+from General_Functions.Nii_Functions import saveSlice
 
 Total_Start = time.time()
 
@@ -32,9 +31,6 @@ Total_Start = time.time()
 data_path = join(os.getcwd(), 'DATABASE')
 results_path = join(os.getcwd(), 'Results') # Folder where all result images will be saved
 flair_path = join(data_path, 'OnlyBrain/flair/')
-t1w_path = join(data_path, 'OnlyBrain/t1w/')
-label_path = join(data_path, 'OnlyBrain/label/')
-brain_path = join(data_path, 'brain/')
 weights_path = join(os.getcwd(), 'weights/') # Folder where final weights of the network will be saved
 
 # Define the id of test patients
@@ -86,48 +82,8 @@ Image_IDs = np.empty(0)
 # Iterate over the image IDs and label the images as Train or Test image
 print('Building X_train, Y_train and X_test... ')
 for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
-    # Load the images and labels
-    flair_image = readImage(join(flair_path, f'{id_}'))
-    t1w_image = readImage(join(t1w_path, f'{id_}'))
-    label_image = readImage(join(label_path, f'{id_}'))
-    brain_mask = readImage(join(brain_path, f'{id_}'))
-
-    # Preprocess the images and labels
-    (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
-    (t1w_image, label_image) = imagePreProcessing(t1w_image, brain_mask, label_image)
-    
-    # Skip the images in which there is no brain
-    if np.max(brain_mask) == 0.0:
-        continue 
-
-    # Concatenate FLAIR and T1W images
-    FLAIR_and_T1W_image = concatenateImages(flair_image, t1w_image)
-    FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
-    label_image = label_image[np.newaxis, ..., np.newaxis]
-    
-    # Sort images based on the patient number
-    patient_number = int(id_[7:10])
-    if patient_number in test_patients:
-        # Image will be used for testing
-        TEST_IMAGES = np.append(TEST_IMAGES, FLAIR_and_T1W_image, axis = 0)
-        Image_IDs = np.append(Image_IDs, image_ids[n])
-        
-    else:    
-        # Image is classified as a training image
-        TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
-        TRAIN_LABELS = np.append(TRAIN_LABELS, label_image, axis = 0)
-        
-        # Apply data augmentation 10 times if there are labeled lesions in the slice
-        if id_[:14] in labeled_ids:
-            labelImg = label_image[0, :, :, 0]
-            for k in range(0, 9):
-                flairAug, t1Aug, labelAug = dataAugmentation(flair_image, t1w_image, labelImg)
-                FLAIR_and_T1W_image = concatenateImages(flairAug, t1Aug)
-                FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
-                labelAug = labelAug[np.newaxis, ..., np.newaxis]
-                TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
-                TRAIN_LABELS = np.append(TRAIN_LABELS, labelAug, axis = 0)
-                k += 1
+    TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs = build_train_test_data(data_path, test_patients, labeled_ids, id_, 
+                                                                               TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
 
 # Fit the models
 print('Starting to fit the models in the enseble, will take a while...')
