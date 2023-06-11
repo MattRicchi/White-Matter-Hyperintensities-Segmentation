@@ -308,3 +308,44 @@ def add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image, id_):
     Image_IDs = np.append(Image_IDs, id_)
     
     return TEST_IMAGES, Image_IDs
+
+
+def add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_image, labeled_ids, id_):
+    """
+    Add data to the training arrays, including data augmentation if there are labeled lesions.
+
+    Parameters
+    ----------
+    TRAIN_IMAGES: ndarray
+        Array containing the training images.
+    TRAIN_LABELS: ndarray
+        Array containing the training labels.
+    FLAIR_and_T1W_image: ndarray
+        FLAIR and T1W image to be added to the training data.
+    label_image: ndarray
+        Labeled image corresponding to the FLAIR and T1W image.
+    labeled_ids: list
+        List of labeled image IDs.
+    id_: str
+        Current image ID.
+
+    Returns
+    -------
+    TRAIN_IMAGES: ndarray
+        Updated array containing the training images.
+    TRAIN_LABELS: ndarray
+        Updated array containing the training labels.
+    """
+    
+    TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis=0)
+    TRAIN_LABELS = np.append(TRAIN_LABELS, label_image, axis=0)
+
+    # Apply data augmentation 10 times if there are labeled lesions in the slice
+    if id_[:14] in labeled_ids:
+        label_image = label_image[0, :, :, 0]
+        for _ in range(9):
+            FLAIR_and_T1W_aug, label_aug = dataAugmentation(FLAIR_and_T1W_image, label_image)
+            TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_aug[np.newaxis, ...], axis=0)
+            TRAIN_LABELS = np.append(TRAIN_LABELS, label_aug[np.newaxis, ..., np.newaxis], axis=0)
+            
+    return TRAIN_IMAGES, TRAIN_LABELS
