@@ -534,6 +534,13 @@ def test_has_brain_without_brain():
     
 
 def test_add_to_test_data():
+    '''
+    This is to test that the add_to_test_data function correctly adds the given images to the TEST_IMAGES array.
+    
+    GIVEN: An image that will be used to test the network
+    WHEN: The add_to_test_data is applied to the image
+    THEN: The image is correctly added to the TEST_IMAGES array
+    '''
     # Initialize test data arrays
     TEST_IMAGES = np.ndarray((0, 256, 256, 2))
     Image_IDs = np.empty(0)
