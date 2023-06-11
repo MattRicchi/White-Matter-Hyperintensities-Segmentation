@@ -281,3 +281,30 @@ def has_brain(brain_mask):
         True if the brain mask has non-zero values, indicating the presence of brain. False otherwise.
     """
     return np.max(brain_mask) > 0.0
+
+
+def add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image, id_):
+    """
+    Add FLAIR_and_T1W_image and corresponding image ID to the test data.
+
+    Parameters
+    ----------
+    TEST_IMAGES: numpy.ndarray
+        Array representing the test images data, with shape (num_samples, height, width, channels).
+    Image_IDs: numpy.ndarray
+        Array representing the image IDs for the test images.
+    FLAIR_and_T1W_image: numpy.ndarray
+        Array representing the FLAIR and T1W image data for a single sample, with shape (height, width, channels).
+    id_: str
+        The image ID for the FLAIR_and_T1W_image.
+
+    Returns
+    -------
+    numpy.ndarray, numpy.ndarray
+        Updated TEST_IMAGES array and Image_IDs array after adding the new sample.
+    """
+    
+    TEST_IMAGES = np.append(TEST_IMAGES, FLAIR_and_T1W_image[np.newaxis, ...], axis=0)
+    Image_IDs = np.append(Image_IDs, id_)
+    
+    return TEST_IMAGES, Image_IDs
