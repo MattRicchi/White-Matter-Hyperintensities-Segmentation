@@ -15,7 +15,7 @@ import pytest
 import os
 
 from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
-from General_Functions.Training_Functions import dataAugmentation, scheduler
+from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients
 from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def test_readImage_read():
@@ -472,3 +472,24 @@ def test_gaussian_normalisation_mean_std():
     # Check if the output image has zero mean and unit variance within the brain mask
     assert np.isclose(np.mean(normalised_image[brain_mask == 1.0]), 0.0, rtol=1e-3), "The normalised image mean is not close to 0."
     assert np.isclose(np.std(normalised_image[brain_mask == 1.0]), 1.0, rtol=1e-3), "the normalised image standard deviation is not close to 1."
+    
+def test_get_test_patients():
+    '''
+    This is to test that the get_test_patients correctly reads the test_patients.txt and builds an array with the content of the txt file.
+    
+    GIVEN: a txt file containing the numbers corresponding to test patients
+    WHEN: the get_test_patients is called
+    THEN: the content of the txt file is correctly used to build the test_patients array
+    '''
+    
+    # Set the path to the test patients file
+    test_patients_file = "test_folder/test_patients.txt"
+
+    # Call the get_test_patients function
+    test_patients = get_test_patients(test_patients_file)
+
+    # Define the expected result
+    expected_result = np.array([1, 2, 3, 4, 5])
+        
+    # Assert that the returned value matches the expected result
+    np.testing.assert_array_equal(test_patients, expected_result)
