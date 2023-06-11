@@ -15,7 +15,7 @@ import pytest
 import os
 
 from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
-from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients
+from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain
 from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
 
 def test_readImage_read():
@@ -493,3 +493,41 @@ def test_get_test_patients():
         
     # Assert that the returned value matches the expected result
     np.testing.assert_array_equal(test_patients, expected_result)
+    
+
+def test_has_brain_with_brain():
+    '''
+    This is to test that the has_brain function returns True when a brain mask with non zero values is given.
+    
+    GIVEN: a brain mask with non zero values
+    WHEN: the has_brain function is applied to the brain mask
+    THEN: the has_brain returns True
+    '''
+    
+    # Create a brain mask with non-zero values
+    brain_mask = np.array([[0, 0, 0], [0, 1, 0], [0, 0, 0]])
+        
+    # Call the has_brain function
+    result = has_brain(brain_mask)
+        
+    # Assert that the result is True
+    assert result == True
+    
+    
+def test_has_brain_without_brain():
+    '''
+    This is to test that the has_brain function returns False when a brain mask with zero values is given.
+    
+    GIVEN: a brain mask with zero values
+    WHEN: the has_brain function is applied to the brain mask
+    THEN: the has_brain returns False
+    '''
+    
+    # Create a brain mask with zero values
+    brain_mask = np.array([[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+        
+    # Call the has_brain function
+    result = has_brain(brain_mask)
+        
+    # Assert that the result is True
+    assert result == False
