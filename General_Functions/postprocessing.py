@@ -8,7 +8,7 @@ Date: May 2023
 import numpy as np
 import cv2
 from General_Functions.image_preprocessing import crop_image
-from Training_Functions import dice_coef_for_training
+from General_Functions.Training_Functions import dice_coef_for_training
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 def get_evaluation_metrics(true_image, predicted_image):
