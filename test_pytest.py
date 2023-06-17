@@ -15,8 +15,8 @@ import pytest
 import os
 
 from General_Functions.Nii_Functions import readImage, saveSlice, concatenateImages
-from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain, add_to_test_data, add_to_train_data
-from General_Functions.image_preprocessing import crop_image, gaussian_normalisation
+from General_Functions.Training_Functions import dataAugmentation, scheduler, get_test_patients, has_brain, add_to_test_data, add_to_train_data, build_train_test_data
+from General_Functions.image_preprocessing import crop_image, gaussian_normalisation, imagePreProcessing
 
 def test_readImage_read():
     '''
@@ -590,3 +590,34 @@ def test_add_to_train_data():
     assert np.array_equal(TRAIN_LABELS[0], label_image_1)
     assert np.array_equal(TRAIN_IMAGES[1], FLAIR_and_T1W_image_2)
     assert np.array_equal(TRAIN_LABELS[1], label_image_2)
+
+
+def test_build_train_test_data_TEST_IMAGE():
+    '''
+    This is to test that the build_train_test_data function correctly classifies a given image as a test image
+    
+    GIVEN: a flair and t1w images whose id corresponds to one of the testing patients
+    WHEN: the build_train_test_data function is called
+    THEN: the function correctly classifies the image as a test image
+    '''
+    TRAIN_IMAGES = np.ndarray((0, 256, 256, 2))
+    TEST_IMAGES = np.ndarray((0, 256, 256, 2))
+    TRAIN_LABELS = np.ndarray((0, 256, 256))
+    Image_IDs = np.empty(0)
+    
+    test_patients = [2, 5]
+    
+    flair = readImage('test_folder/OnlyBrain/flair/volume-002-004.nii')
+    t1w = readImage('test_folder/OnlyBrain/t1w/volume-002-004.nii')
+    label = readImage('test_folder/OnlyBrain/label/volume-002-004.nii')
+    brain_mask = readImage('test_folder/brain/volume-002-004.nii')
+    
+    (flair, label) = imagePreProcessing(flair, brain_mask, label)
+    (t1w, label) = imagePreProcessing(t1w, brain_mask, label)
+    
+    FLAIR_and_T1W_image = concatenateImages(flair, t1w)
+    
+    TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs = build_train_test_data('test_folder/', test_patients, [], 'volume-002-004.nii', TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
+    
+    assert np.array_equal(TEST_IMAGES[0], FLAIR_and_T1W_image)
+    assert Image_IDs[0] == 'volume-002-004.nii'
