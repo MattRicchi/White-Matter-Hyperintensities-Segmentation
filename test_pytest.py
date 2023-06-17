@@ -563,6 +563,14 @@ def test_add_to_test_data():
     
     
 def test_add_to_train_data():
+    '''
+    This is to test that the add_to_train_data function correctly adds the given images to the TRAIN_IMAGES array, 
+    and the correspondent labels to the TRAIN_LABELS array.
+    
+    GIVEN: An image that will be used to train the network and its gorund truth segmentation map
+    WHEN: The add_to_train_data is applied to the image and to the label
+    THEN: The image is correctly added to the TRAIN_IMAGES array and the label image to the TRAIN_LABELS array
+    '''
     # Initialize train data arrays
     TRAIN_IMAGES = np.ndarray((0, 256, 256, 2))
     TRAIN_LABELS = np.ndarray((0, 256, 256))
