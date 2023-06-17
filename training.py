@@ -76,7 +76,7 @@ labeled_ids = labeled_ids.read()
 # Define the arrays for the Train and Test images
 TRAIN_IMAGES = np.ndarray((0, image_shape[0], image_shape[1], image_shape[2]), dtype = np.float32)
 TEST_IMAGES = np.ndarray((0, image_shape[0], image_shape[1], image_shape[2]), dtype = np.float32)
-TRAIN_LABELS = np.zeros((0, image_shape[0], image_shape[1], 1), dtype = np.float32)
+TRAIN_LABELS = np.zeros((0, image_shape[0], image_shape[1]), dtype = np.float32)
 Image_IDs = np.empty(0)
 
 # Iterate over the image IDs and label the images as Train or Test image
@@ -84,6 +84,9 @@ print('Building X_train, Y_train and X_test... ')
 for n, id_ in tqdm(enumerate(image_ids), total=len(image_ids)):
     TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs = build_train_test_data(data_path, test_patients, labeled_ids, id_, 
                                                                                TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
+
+# Correct the shape of TRAIN_LABELS
+TRAIN_LABELS = TRAIN_LABELS[..., np.newaxis]
 
 # Fit the models
 print('Starting to fit the models in the enseble, will take a while...')
