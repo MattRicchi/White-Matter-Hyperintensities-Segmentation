@@ -652,3 +652,25 @@ def test_build_train_test_data_TRAIN_IMAGE():
     
     assert np.array_equal(TRAIN_IMAGES[0], FLAIR_and_T1W_image)
     assert np.array_equal(TRAIN_LABELS[0], label)
+    
+    
+def test_build_train_test_data_NO_BRAIN():
+    '''
+    This is to test that the build_train_test_data function does not update the TRAIN_IMAGES, TEST_IMAGES, TRAIN_LABELS, Image_IDs
+    arrays when an image with no brain is given as input.
+    
+    GIVEN: flair and t1w images that do not contain brain
+    WHEN: the build_train_test_data function is called
+    THEN: the function correctly does not update the output arrays
+    '''
+    TRAIN_IMAGES = np.ndarray((0, 256, 256, 2))
+    TEST_IMAGES = np.ndarray((0, 256, 256, 2))
+    TRAIN_LABELS = np.ndarray((0, 256, 256))
+    Image_IDs = np.empty(0)
+    
+    TRAIN_IMAGES_updated, TRAIN_LABELS_updated, TEST_IMAGES_updated, Image_IDs_updated = build_train_test_data('test_folder/test_NObrain/', [], [], 'volume-002-004.nii', TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
+    
+    assert np.array_equal(TRAIN_IMAGES, TRAIN_IMAGES_updated)
+    assert np.array_equal(TRAIN_LABELS, TRAIN_LABELS_updated)
+    assert np.array_equal(TEST_IMAGES, TEST_IMAGES_updated)
+    assert np.array_equal(Image_IDs, Image_IDs_updated)
