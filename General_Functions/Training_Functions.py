@@ -388,37 +388,36 @@ def build_train_test_data(data_path, test_patients, labeled_ids, id_, TEST_IMAGE
     # Load the images and labels
     flair_image, t1w_image, label_image, brain_mask = load_images(flair_path, t1w_path, label_path, brain_path, id_)
 
-    # Skip the images in which there is no brain
-    if not has_brain(brain_mask):
-        return TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs
+    # Process only the images in which there is brain
+    if has_brain(brain_mask):
 
-    # Preprocess the images and labels
-    (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
-    (t1w_image, label_image) = imagePreProcessing(t1w_image, brain_mask, label_image)
+        # Preprocess the images and labels
+        (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
+        (t1w_image, label_image) = imagePreProcessing(t1w_image, brain_mask, label_image)
     
-    # Concatenate FLAIR and T1W images
-    FLAIR_and_T1W_image = concatenateImages(flair_image, t1w_image)
+        # Concatenate FLAIR and T1W images
+        FLAIR_and_T1W_image = concatenateImages(flair_image, t1w_image)
 
-    # Sort images based on the patient number
-    patient_number = int(id_[7:10])
+        # Sort images based on the patient number
+        patient_number = int(id_[7:10])
     
-    if patient_number in test_patients:
-        # Image will be used for testing
-        TEST_IMAGES, Image_IDs = add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image, id_)
-        
-    else:    
-        # Image is classified as a training image
-        TRAIN_IMAGES, TRAIN_LABELS = add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_image)
-    
-        # Apply data augmentation 10 times if there are labeled lesions in the slice
-        if id_[:14] in labeled_ids:
-            labelImg = label_image[0, :, :, 0]
-            for _ in range(9):
-                flairAug, t1Aug, labelAug = dataAugmentation(flair_image, t1w_image, labelImg)
-                FLAIR_and_T1W_image = concatenateImages(flairAug, t1Aug)
-                FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
-                labelAug = labelAug[np.newaxis, ..., np.newaxis]
-                TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
-                TRAIN_LABELS = np.append(TRAIN_LABELS, labelAug, axis = 0)
-                
+        if patient_number in test_patients:
+            # Image will be used for testing
+            TEST_IMAGES, Image_IDs = add_to_test_data(TEST_IMAGES, Image_IDs, FLAIR_and_T1W_image, id_)
+
+        else:    
+            # Image is classified as a training image
+            TRAIN_IMAGES, TRAIN_LABELS = add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_image)
+
+            # Apply data augmentation 10 times if there are labeled lesions in the slice
+            if id_[:14] in labeled_ids:
+                labelImg = label_image[0, :, :, 0]
+                for _ in range(9):
+                    flairAug, t1Aug, labelAug = dataAugmentation(flair_image, t1w_image, labelImg)
+                    FLAIR_and_T1W_image = concatenateImages(flairAug, t1Aug)
+                    FLAIR_and_T1W_image = FLAIR_and_T1W_image[np.newaxis, ...]
+                    labelAug = labelAug[np.newaxis, ..., np.newaxis]
+                    TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image, axis = 0)
+                    TRAIN_LABELS = np.append(TRAIN_LABELS, labelAug, axis = 0)
+
     return TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs
