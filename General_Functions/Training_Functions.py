@@ -388,7 +388,7 @@ def build_train_test_data(data_path, test_patients, labeled_ids, id_, TEST_IMAGE
 
     # Skip the images in which there is no brain
     if not has_brain(brain_mask):
-        return
+        return TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs
 
     # Preprocess the images and labels
     (flair_image, label_image) = imagePreProcessing(flair_image, brain_mask, label_image)
