@@ -1,3 +1,4 @@
 
 test_folder/test_image.nii
 *.pyc
+*.json
