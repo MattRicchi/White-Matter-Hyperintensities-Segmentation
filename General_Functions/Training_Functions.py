@@ -344,7 +344,9 @@ def add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_ima
 
 def build_train_test_data(data_path, test_patients, labeled_ids, id_, TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs):
     """
-    This function classifies the input images as part of the training or testing datasets based on the image ID. 
+    This function classifies the input images as part of the training or testing datasets based on the image ID.
+    Input slices with no brain anre skipped by the function.
+    If the input slice is classified as a training image and it contains white matter lesion, data augemntation is applied 9 times.
 
     Parameters
     ----------
