@@ -155,7 +155,7 @@ def test_concatenateImages_correctConcatenation():
     concatenated_img = concatenateImages(flair_img, t1w_img)
 
     # Test successful concatenation
-    assert np.allclose(concatenated_img, expected_output), "The concatenated image is not equale to the expected one."
+    assert np.array_equal(concatenated_img, expected_output), "The concatenated image is not equale to the expected one."
 
 def test_concatenateImages_matchWithOriginalImages():
     '''
