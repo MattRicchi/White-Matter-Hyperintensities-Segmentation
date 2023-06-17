@@ -337,7 +337,7 @@ def add_to_train_data(TRAIN_IMAGES, TRAIN_LABELS, FLAIR_and_T1W_image, label_ima
     """
     
     TRAIN_IMAGES = np.append(TRAIN_IMAGES, FLAIR_and_T1W_image[np.newaxis, ...], axis = 0)
-    TRAIN_LABELS = np.append(TRAIN_LABELS, label_image[np.newaxis, ..., np.newaxis], axis = 0)
+    TRAIN_LABELS = np.append(TRAIN_LABELS, label_image[np.newaxis, ...], axis = 0)
             
     return TRAIN_IMAGES, TRAIN_LABELS
 
