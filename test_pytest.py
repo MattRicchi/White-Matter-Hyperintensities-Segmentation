@@ -623,11 +623,13 @@ def test_build_train_test_data_TEST_IMAGE():
     FLAIR_and_T1W_image = concatenateImages(flair, t1w)
     
     # Call the build_train_test_data
-    TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs = build_train_test_data('test_folder/', test_patients, [], 'volume-002-004.nii', TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
+    TRAIN_IMAGES_updated, TRAIN_LABELS_updated, TEST_IMAGES_updated, Image_IDs_updated = build_train_test_data('test_folder/', test_patients, [], 'volume-002-004.nii', TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
     
     # Check that the arrays have been properly updated
-    assert np.array_equal(TEST_IMAGES[0], FLAIR_and_T1W_image)
-    assert Image_IDs[0] == 'volume-002-004.nii'
+    assert np.array_equal(TEST_IMAGES_updated[0], FLAIR_and_T1W_image)
+    assert Image_IDs_updated[0] == 'volume-002-004.nii'
+    assert np.array_equal(TRAIN_IMAGES, TRAIN_IMAGES_updated)
+    assert np.array_equal(TRAIN_LABELS, TRAIN_LABELS_updated)
     
     
 def test_build_train_test_data_TRAIN_IMAGE():
