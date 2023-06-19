@@ -600,25 +600,32 @@ def test_build_train_test_data_TEST_IMAGE():
     WHEN: the build_train_test_data function is called
     THEN: the function correctly classifies the image as a test image
     '''
+    
+    # Initialize test and train data arrays
     TRAIN_IMAGES = np.ndarray((0, 256, 256, 2))
     TEST_IMAGES = np.ndarray((0, 256, 256, 2))
     TRAIN_LABELS = np.ndarray((0, 256, 256))
     Image_IDs = np.empty(0)
     
+    # Define the patients to be used to test the network
     test_patients = [2, 5]
     
+    # Read the images
     flair = readImage('test_folder/OnlyBrain/flair/volume-002-004.nii')
     t1w = readImage('test_folder/OnlyBrain/t1w/volume-002-004.nii')
     label = readImage('test_folder/OnlyBrain/label/volume-002-004.nii')
     brain_mask = readImage('test_folder/brain/volume-002-004.nii')
     
+    # Preprocess the images
     (flair, label) = imagePreProcessing(flair, brain_mask, label)
     (t1w, label) = imagePreProcessing(t1w, brain_mask, label)
     
     FLAIR_and_T1W_image = concatenateImages(flair, t1w)
     
+    # Call the build_train_test_data
     TRAIN_IMAGES, TRAIN_LABELS, TEST_IMAGES, Image_IDs = build_train_test_data('test_folder/', test_patients, [], 'volume-002-004.nii', TEST_IMAGES, TRAIN_IMAGES, TRAIN_LABELS, Image_IDs)
     
+    # Check that the arrays have been properly updated
     assert np.array_equal(TEST_IMAGES[0], FLAIR_and_T1W_image)
     assert Image_IDs[0] == 'volume-002-004.nii'
     
