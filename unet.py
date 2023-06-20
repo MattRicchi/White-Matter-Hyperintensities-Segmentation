@@ -6,6 +6,11 @@ Author: Mattia Ricchi
 Date: May 2023
 '''
 
+import os
+import tensorflow.keras as keras
+from tensorflow.keras import layers as L
+from General_Functions.Training_Functions import get_crop_shape
+
 def get_unet(inputs):
     '''
     This function defines the U-Net architecture used in the ensemble model for image segmentation.
@@ -39,11 +44,6 @@ def get_unet(inputs):
     This implementation assumes the use of TensorFlow as the backend.
 
     '''
-
-    import os
-    import tensorflow.keras as keras
-    from tensorflow.keras import layers as L
-    from General_Functions.Training_Functions import get_crop_shape
 
     conv1 = L.Conv2D(filters=64, kernel_size=5, strides=1, activation='relu',
                      padding='same', data_format='channels_last', name='conv1_1')(inputs)
